@@ -1,0 +1,43 @@
+# Duplicator installer files (security risk)
+installer-backup.php
+installer-data1.sql
+Instructions.txt
+
+# Backup archives
+RAIB - System Restore Framework.zip
+wordpress-4.9.5.zip
+gravityforms.zip
+working-copy.sql
+
+# Web server configs
+web.config
+
+# Logs
+error_log
+wp-content/debug.log
+wp-admin/error_log
+wp-content/plugins/error_log
+wp-content/themes/error_log
+
+# DDEV build artifacts
+.ddev/.dbimageBuild/
+.ddev/.webimageBuild/
+.ddev/.ddev-docker-compose-base.yaml
+.ddev/.ddev-docker-compose-full.yaml
+.ddev/.homeadditions/
+.ddev/.sshimageBuild/
+.ddev/.importdb*
+.ddev/.*downloads
+.ddev/apache/apache-site.conf
+.ddev/nginx_full/nginx-site.conf
+.ddev/traefik/
+
+# WP snapshots
+wp-snapshots/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment file (contains secrets)
+.env

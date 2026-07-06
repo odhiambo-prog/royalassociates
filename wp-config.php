@@ -32,10 +32,48 @@
 /*define('DB_HOST', 'localhost');*/
 
 /** Database Charset to use in creating database tables. */
-/*define('DB_CHARSET', 'utf8mb4');*/
+define('DB_CHARSET', 'utf8mb4');
 
 /** The Database Collate type. Don't change this if in doubt. */
-/*define('DB_COLLATE', '');*/
+define('DB_COLLATE', '');
+
+// ** Environment-variable driven settings (used by Dokploy) ** //
+// Skip this block when running under DDEV — DDEV handles its own config.
+if (getenv('DB_NAME') && getenv('IS_DDEV_PROJECT') !== 'true') {
+    define('DB_NAME', getenv('DB_NAME'));
+    define('DB_USER', getenv('DB_USER'));
+    define('DB_PASSWORD', getenv('DB_PASSWORD'));
+    define('DB_HOST', getenv('DB_HOST'));
+
+    if (getenv('WP_HOME')) {
+        define('WP_HOME', getenv('WP_HOME'));
+    }
+
+    if (getenv('WP_SITEURL')) {
+        define('WP_SITEURL', getenv('WP_SITEURL'));
+    }
+
+    // Override auth keys/salts from environment if provided
+    foreach (['AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY',
+               'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT'] as $key) {
+        $env_val = getenv($key);
+        if ($env_val) {
+            define($key, $env_val);
+        }
+    }
+
+    // Detect HTTPS behind reverse proxy (e.g. Dokploy Traefik)
+    if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+        $_SERVER['HTTPS'] = 'on';
+    }
+
+    // Debug settings (default to production-safe values)
+    define('WP_DEBUG', getenv('WP_DEBUG') === 'true');
+    define('WP_DEBUG_LOG', getenv('WP_DEBUG_LOG') === 'true');
+    define('WP_DEBUG_DISPLAY', getenv('WP_DEBUG_DISPLAY') !== 'false');
+    define('SCRIPT_DEBUG', getenv('SCRIPT_DEBUG') === 'true');
+    error_reporting(WP_DEBUG ? E_ALL : 0);
+}
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -79,18 +117,22 @@ $table_prefix  = 'wp_';
  */
 
 // Enable WP_DEBUG mode
-define('WP_DEBUG', true);
+defined('WP_DEBUG') || define('WP_DEBUG', true);
 
 // Enable Debug logging to the /wp-content/debug.log file
-define('WP_DEBUG_LOG', true);
+defined('WP_DEBUG_LOG') || define('WP_DEBUG_LOG', true);
 
 // Disable display of errors and warnings 
-define('WP_DEBUG_DISPLAY', false);
+defined('WP_DEBUG_DISPLAY') || define('WP_DEBUG_DISPLAY', false);
 @ini_set('display_errors', 0);
 
-error_reporting(E_ALL);
+if (!defined('WP_DEBUG') || WP_DEBUG) {
+    error_reporting(E_ALL);
+} else {
+    error_reporting(0);
+}
 // Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
-define('SCRIPT_DEBUG', true);
+defined('SCRIPT_DEBUG') || define('SCRIPT_DEBUG', true);
 
 /* That's all, stop editing! Happy blogging. */
 define('WP_MEMORY_LIMIT', '64M');
