@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
     section.addEventListener('mouseleave', start);
   }
 })();
-</script><div id="quote-modal" class="modal-overlay"><div class="modal-box"><button class="modal-close" onclick="closeQuoteModal()">&times;</button><h2>Get a Quote</h2><p class="modal-sub">Fill in your details and we will get back to you.</p><?php gravity_form(4, false, false, false, null, false); ?></div></div>
+</script><div id="quote-modal" class="modal-overlay"><div class="modal-box"><button class="modal-close" onclick="closeQuoteModal()">&times;</button><h2>Get a Quote</h2><p class="modal-sub">Fill in your details and we will get back to you.</p><?php gravity_form('Get a Quote', false, false, false, null, false); ?></div></div>
 <style>
 #quote-modal .gf-product-field input { background: #f0f4f8 !important; border: 1px solid #cbd5e1 !important; cursor: default !important; opacity: 0.8 !important; }
 #quote-modal input:not([type=submit]):not([type=checkbox]), #quote-modal textarea { border: 1px solid #cbd5e1 !important; border-radius: 0.375rem !important; padding: 0.625rem 0.75rem !important; font-size: 0.95rem !important; width: 100% !important; }
