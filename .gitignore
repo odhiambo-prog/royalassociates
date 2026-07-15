@@ -41,3 +41,6 @@ Thumbs.db
 
 # Environment file (contains secrets)
 .env
+
+# Large media files (handled via persistent Docker volume)
+*.mp4
