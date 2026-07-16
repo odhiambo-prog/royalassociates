@@ -162,8 +162,26 @@ function royal_shepherd_serve_assets($continue, $wp, $query) {
     if (preg_match('#^/assets/(.+)$#', $request, $m)) {
         $file = get_template_directory() . '/assets/' . $m[1];
         if (file_exists($file)) {
-            $mime = mime_content_type($file);
-            if ($mime) header('Content-Type: ' . $mime);
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            $mime_types = [
+                'css' => 'text/css',
+                'js'  => 'application/javascript',
+                'jpg' => 'image/jpeg',
+                'jpeg'=> 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'webp'=> 'image/webp',
+                'svg' => 'image/svg+xml',
+                'ico' => 'image/x-icon',
+                'mp4' => 'video/mp4',
+                'woff'=> 'font/woff',
+                'woff2'=> 'font/woff2',
+                'ttf' => 'font/ttf',
+                'otf' => 'font/otf',
+            ];
+            if (isset($mime_types[$ext])) {
+                header('Content-Type: ' . $mime_types[$ext]);
+            }
             readfile($file);
             exit;
         }
