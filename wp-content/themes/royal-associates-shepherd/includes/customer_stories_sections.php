@@ -41,7 +41,7 @@ function cs_render_hero(): void
                 </div>
                 <div class="u-button-wrapper u-margin-top-0">
                   <div class="button_main_wrap">
-                    <div class="clickable_wrap u-cover-absolute"><a href="/contact" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Contact Us</span></a></div>
+                    <div class="clickable_wrap u-cover-absolute"><a href="/contact/" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Contact Us</span></a></div>
                     <div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Contact Us</div><div class="button_main_icon u-hide-if-empty"></div></div>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ function cs_render_forced_scroll(array $featured, array $stories): void
           <p class="u-text-style-main" style="color:rgba(255,255,255,0.85);margin-top:0.75rem">Talk to our team about corporate or individual insurance solutions tailored for you.</p>
           <div style="margin-top:1.25rem">
             <div data-wf--button-main--variant="primary" class="button_main_wrap" data-button=" " data-trigger="hover focus">
-              <div class="clickable_wrap u-cover-absolute"><a href="/contact" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Contact us</span></a></div>
+              <div class="clickable_wrap u-cover-absolute"><a href="/contact/" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Contact us</span></a></div>
               <div class="button_main_element" style="background:#00ADEF!important;color:#fff!important;border:none!important"><?= cs_play_icon() ?><div aria-hidden="true" class="button_main_text u-text-style-small">Contact us</div></div>
             </div>
           </div>

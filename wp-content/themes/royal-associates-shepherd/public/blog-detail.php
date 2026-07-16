@@ -32,7 +32,7 @@ if (!$post) {
     include __DIR__ . '/../includes/nav_tail.php';
     echo '<div class="page_content"><section class="u-section u-theme-light"><div class="section_spacer is-pages-hero"><div class="u-container is-hero"><div class="u-content v-flex-4">';
     echo '<div class="u-text-style-h2">Post not found</div>';
-    echo '<p class="u-text-style-main">We couldn\'t find that article. <a href="/blog" style="color:#00ADEF;text-decoration:underline">Return to the blog</a>.</p>';
+    echo '<p class="u-text-style-main">We couldn\'t find that article. <a href="/blog/" style="color:#00ADEF;text-decoration:underline">Return to the blog</a>.</p>';
     echo '</div></div></div></section></div>';
     include __DIR__ . '/../includes/footer.php';
     exit;
@@ -69,7 +69,7 @@ if (!empty($post['categories']) && isset($post['categories'][0])) {
   <?php endif; ?>
   <?= $post['content'] ?? '' ?>
   <div style="margin-top:2.5rem">
-    <div data-wf--button-main--variant="link" data-button=" " data-trigger="hover focus" class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/blog" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Back to blog</span></a></div><div class="button_main_element" style="background:#00ADEF!important;border-color:#00ADEF!important"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 12 16" fill="none" class="video-play"><path d="M11.25 7.79443L2.19575e-07 15.5887L9.00968e-07 0.000204548L11.25 7.79443Z" fill="white"></path></svg><div aria-hidden="true" class="button_main_text u-text-style-small">Back to blog</div><div class="button_main_icon u-hide-if-empty"></div></div></div>
+    <div data-wf--button-main--variant="link" data-button=" " data-trigger="hover focus" class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/blog/" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Back to blog</span></a></div><div class="button_main_element" style="background:#00ADEF!important;border-color:#00ADEF!important"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 12 16" fill="none" class="video-play"><path d="M11.25 7.79443L2.19575e-07 15.5887L9.00968e-07 0.000204548L11.25 7.79443Z" fill="white"></path></svg><div aria-hidden="true" class="button_main_text u-text-style-small">Back to blog</div><div class="button_main_icon u-hide-if-empty"></div></div></div>
   </div>
 </div></div></div></section>
 <div class="hide w-embed"><style>

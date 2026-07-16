@@ -22,7 +22,6 @@ services:
     restart: unless-stopped
     volumes:
       - .:/var/www/html
-      - theme_images:/var/www/html/wp-content/themes/royal-associates-shepherd/assets/images
     environment:
       DB_NAME: ${DB_NAME:-wordpress}
       DB_USER: ${DB_USER:-wordpress}
@@ -43,10 +42,8 @@ services:
     volumes:
       - .:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - theme_images:/var/www/html/wp-content/themes/royal-associates-shepherd/assets/images
     depends_on:
       - php
 
 volumes:
   mariadb_data:
-  theme_images:

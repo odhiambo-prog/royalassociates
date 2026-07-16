@@ -57,7 +57,7 @@ CARD;
                   </div>
                   <div class="u-button-wrapper u-margin-top-0">
                     <div class="button_main_wrap">
-                      <div class="clickable_wrap u-cover-absolute"><a href="/contact" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Contact Us</span></a></div>
+                      <div class="clickable_wrap u-cover-absolute"><a href="/contact/" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Contact Us</span></a></div>
                       <div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Contact Us</div><div class="button_main_icon u-hide-if-empty"></div></div>
                     </div>
                   </div>
