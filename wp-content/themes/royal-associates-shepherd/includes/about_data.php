@@ -31,7 +31,7 @@ return [
     'ceo' => [
         'name' => 'Clifford Mbae',
         'title' => 'Chief Executive Officer',
-        'image' => '/assets/images/exec-photos/clifford-mbae.png',
+        'image' => '/assets/images/exec-photos/clifford-mbae.webp',
         'paragraphs' => [
             'At Royal Associates Insurance Brokers Limited, our commitment is simple yet profound: to deliver unparalleled service to our clients as we continue to scale new heights in the insurance market. We firmly believe that the true measure of our success lies in the value, security, and peace of mind we provide to every client who places their trust in us.',
             'Our approach is anchored on a clear philosophy; the customer is at the center of everything we do. Every decision we make, every partnership we establish, and every solution we design is guided by our dedication to meeting and exceeding the expectations of our clients.',
@@ -44,11 +44,11 @@ return [
     'founding_chair' => [
         'name' => 'Late Paul Kasema',
         'title' => 'Founding Chair',
-        'image' => '/assets/images/exec-photos/pk.png',
+        'image' => '/assets/images/exec-photos/pk.webp',
         'quote' => 'Royal Associates has reached the status of a national player within a relatively short time. The foundation of our success is the commitment of quality individuals who work together tirelessly to serve our clients with passion and dedication. We recognize the immense opportunities that new and emerging technologies offer — yet technology cannot replace the human touch.',
     ],
 
-    'esp_image' => '/assets/images/about/esp-diagram.png',
+    'esp_image' => '/assets/images/about/esp-diagram.webp',
 
     'values_intro' => 'The standards that shape how we think, act, collaborate, and grow — as individuals and as one Royal Associates.',
     'values' => [
@@ -98,11 +98,11 @@ return [
     ],
 
     'experience_projects' => [
-        ['name' => 'JKIA Terminal 4', 'image' => '/assets/images/projects/jkia-terminal4.png', 'layout' => 't4'],
-        ['name' => 'JKIA Greenfield', 'image' => '/assets/images/projects/jkia.png', 'layout' => 'greenfield'],
-        ['name' => 'UAP Tower Juba', 'image' => '/assets/images/projects/uap-toewr-southsudan.png', 'layout' => 'uap-juba'],
-        ['name' => 'UAP Upper Hill', 'image' => '/assets/images/projects/uap-upperhill-kenya.png', 'layout' => 'uap-upper'],
-        ['name' => 'Two Rivers, Runda', 'image' => '/assets/images/projects/two-rivers-runda.png', 'layout' => 'two-rivers'],
+        ['name' => 'JKIA Terminal 4', 'image' => '/assets/images/projects/jkia-terminal4.webp', 'layout' => 't4'],
+        ['name' => 'JKIA Greenfield', 'image' => '/assets/images/projects/jkia.webp', 'layout' => 'greenfield'],
+        ['name' => 'UAP Tower Juba', 'image' => '/assets/images/projects/uap-toewr-southsudan.webp', 'layout' => 'uap-juba'],
+        ['name' => 'UAP Upper Hill', 'image' => '/assets/images/projects/uap-upperhill-kenya.webp', 'layout' => 'uap-upper'],
+        ['name' => 'Two Rivers, Runda', 'image' => '/assets/images/projects/two-rivers-runda.webp', 'layout' => 'two-rivers'],
     ],
 
     'team_groups' => [

@@ -41,7 +41,7 @@ function about_get_partner_logos(): array
     if (!is_dir($dir)) {
         return [];
     }
-    $files = glob($dir . '/logo_*.png') ?: [];
+    $files = glob($dir . '/logo_*.webp') ?: [];
     sort($files, SORT_NATURAL);
     return array_map(static fn(string $path): string => '/assets/images/partners/royal_partners_logos_transparent/' . basename($path), $files);
 }
@@ -121,7 +121,7 @@ function about_get_team_group_members(string $folder): array
         return [];
     }
     $files = array_merge(
-        glob($dir . '/*.png') ?: [],
+        glob($dir . '/*.webp') ?: [],
         glob($dir . '/*.jpg') ?: [],
         glob($dir . '/*.jpeg') ?: [],
         glob($dir . '/*.webp') ?: []

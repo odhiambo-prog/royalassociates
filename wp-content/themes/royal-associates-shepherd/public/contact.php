@@ -8,9 +8,9 @@ include __DIR__ . '/../includes/nav_tail.php';
 
 <?php
 $branches = [
-  ['name'=>'Nairobi','tag'=>'Headquarters','img'=>'westlands.png','address'=>'Westlands Business Park, 3rd Floor','location'=>'Chiromo Lane, Westlands, Nairobi','phones'=>['(020) 513 5700 / +254 740 000 006'],'email'=>'info@royalassociates.co.ke'],
-  ['name'=>'Machakos','tag'=>'Branch','img'=>'machakos.png','address'=>'Opposite Machakos Stadium','location'=>'','phones'=>['(020) 513 5700'],'email'=>''],
-  ['name'=>'Mombasa','tag'=>'Branch','img'=>'mombasa.png','address'=>'Links Road, Nyali','location'=>'','phones'=>['(020) 513 5700'],'email'=>''],
+  ['name'=>'Nairobi','tag'=>'Headquarters','img'=>'westlands.webp','address'=>'Westlands Business Park, 3rd Floor','location'=>'Chiromo Lane, Westlands, Nairobi','phones'=>['(020) 513 5700 / +254 740 000 006'],'email'=>'info@royalassociates.co.ke'],
+  ['name'=>'Machakos','tag'=>'Branch','img'=>'machakos.webp','address'=>'Opposite Machakos Stadium','location'=>'','phones'=>['(020) 513 5700'],'email'=>''],
+  ['name'=>'Mombasa','tag'=>'Branch','img'=>'mombasa.webp','address'=>'Links Road, Nyali','location'=>'','phones'=>['(020) 513 5700'],'email'=>''],
   ['name'=>'Kigali','tag'=>'Branch','img'=>'','address'=>'Makuza Peace Plaza, 4th Floor','location'=>'P.O. Box 2554, Kigali','phones'=>['+250 788 601 449'],'email'=>''],
 ];
 $cornerSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 60 60" fill="none" class="corner-svg"><path d="M60 60L60 -2.14577e-06L30 30L-2.14577e-06 60L60 60Z" fill="white"></path></svg>';
