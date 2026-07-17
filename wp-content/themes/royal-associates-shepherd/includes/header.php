@@ -659,8 +659,17 @@ body:has(.nav_component .w-nav-button.w--open):not(:has(.nav_desktop_wrap:not(.w
 @media (min-width: 52em) {
 	/* show desktop nav & dropdown backdrop */
 	.nav_desktop_wrap, .nav_dropdown_backdrop { display: block !important; }
-	/* hide mobile nav & mobile menu backdrop */
-	.nav_desktop_wrap:not(.w-condition-invisible) ~ .nav_mobile_wrap, .nav_desktop_wrap:not(.w-condition-invisible) ~ .nav_menu_backdrop { display: none !important; }
+  /* hide mobile nav & mobile menu backdrop */
+  .nav_desktop_wrap:not(.w-condition-invisible) ~ .nav_mobile_wrap, .nav_desktop_wrap:not(.w-condition-invisible) ~ .nav_menu_backdrop { display: none !important; }
+}
+/* Single-nav visibility guard: the Webflow nav collapse (52em ≈ 832px) left a
+   gap at 768–991px where BOTH desktop and mobile navs rendered and overlapped.
+   Force exactly one nav per range using the standard 991px breakpoint. */
+@media (max-width: 991px) {
+  .nav_desktop_wrap { display: none !important; }
+}
+@media (min-width: 992px) {
+  .nav_mobile_wrap { display: none !important; }
 }
 /* dropdown list: initial state */
 html:not(.wf-design-mode) .nav_dropdown_component > .w-dropdown-list {

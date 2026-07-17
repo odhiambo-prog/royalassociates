@@ -3,3 +3,9 @@ html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:sans-se
 .txt-icon-arrow.is-square:after{background:url('/assets/images/69611a9408bbbdfa752a5db8_Shep-Square_001.gif')0 0 no-repeat;display:inline-block;vertical-align:middle;width:.85em;height:.85em;transform:translate(0px,0em);margin-bottom:-.1em;margin-top:-.2em;margin-left:-.3em;margin-right:-.2em;background-size:contain}
 .txt-icon-arrow.is-up:after{background:url('/assets/images/69611a94e4eaee353b11ad0b_Shep-Up_001.gif')0 0 no-repeat;display:inline-block;vertical-align:middle;width:.75em;height:.75em;transform:translate(0px,0em);margin-bottom:-.1em;margin-top:-.2em;margin-left:-.1em;background-size:contain}
 .txt-icon-arrow.is-img:after{background:url('/assets/images/69611b396cd12b4ce90fabfe_Group%202147210670.webp')0 0 no-repeat;display:inline-block;vertical-align:middle;width:1.75em;height:.75em;transform:translate(0px,0em);margin-bottom:-.1em;margin-top:-.2em;margin-left:-.1em;margin-right:-.4em;background-size:contain}
+img{max-width:100%;height:auto}
+/* Prevent layout shift: reserve space for images that declare width/height */
+img[width]{height:auto}
+/* Responsive media that should never overflow the viewport on small screens */
+img,u-visual-image,video{max-width:100%}
+* { box-sizing: border-box; }

@@ -66,6 +66,9 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
 .is-hero-section .section_spacer.is-hero { flex: 1; display: flex; align-items: center; }
 .is-hero-section .hero-slider-dots { bottom: 3rem; }
 .hero-slide-content { position:relative; z-index:2; }
+/* Guard: keep slide text clear of the absolutely-positioned slider dots so the
+   caption/subtext never overlaps the pagination on either slide (esp. slide 2). */
+.hero-slide-content { max-width: 40rem; padding-bottom: 4.5rem; }
 .hero-slider-arrow:hover { background:rgba(255,255,255,0.3) !important; }
 
 /* Tint animated GIF icons to sky blue */
