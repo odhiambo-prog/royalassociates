@@ -26,8 +26,11 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
 }
 </style></div><section class="u-section is-hero-section">
 <div class="hero-slider-bgs" style="position:absolute;inset:0;z-index:0">
-  <div class="hero-slide-bg is-active hero-slide-bg--personal" style="position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:1;transition:opacity 0.8s ease"></div>
-  <div class="hero-slide-bg hero-slide-bg--corporate" style="position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity 0.8s ease"></div>
+  <div class="hero-slide-bg is-active hero-slide-bg--1" style="position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:1;transition:opacity 0.8s ease"></div>
+  <div class="hero-slide-bg hero-slide-bg--2" style="position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity 0.8s ease"></div>
+  <div class="hero-slide-bg hero-slide-bg--3" style="position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity 0.8s ease"></div>
+  <div class="hero-slide-bg hero-slide-bg--4" style="position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity 0.8s ease"></div>
+  <div class="hero-slide-overlay" aria-hidden="true"></div>
 </div>
 <div class="section_spacer is-hero">
   <div class="u-container">
@@ -35,20 +38,32 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
 <div class="hero-slide-content is-active" style="transition:opacity 0.5s ease">
   <div class="content-flex v-flex-8">
     <p class="hero-eyebrow">Individual <span class="txt-icon-arrow is-square"> </span> Insurance</p>
-    <p class="hero-sub">Protecting what matters most: <em>your health, your assets, your peace of mind.</em></p>
-    <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#individual" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
+    <p class="hero-sub">Motor Risks Insurance: <em>coverage for vehicles against accidents, theft, fire, and third-party liability.</em></p>
+    <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#product-18" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
   </div>
 </div>
 <div class="hero-slide-content" style="transition:opacity 0.5s ease;display:none">
   <div class="content-flex v-flex-8">
     <p class="hero-eyebrow">Corporate <span class="txt-icon-arrow is-square"> </span> Insurance</p>
-    <p class="hero-sub">Tailored cover for your enterprise: <em>because your business deserves the best.</em></p>
-    <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#corporate" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
+    <p class="hero-sub">Marine Insurance: <em>coverage for marine vessels, cargo, and maritime operations.</em></p>
+    <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#product-26" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
+  </div>
+</div>
+<div class="hero-slide-content" style="transition:opacity 0.5s ease;display:none">
+  <div class="content-flex v-flex-8">
+    <p class="hero-eyebrow">Corporate <span class="txt-icon-arrow is-square"> </span> Insurance</p>
+    <p class="hero-sub">Property Insurance: <em>coverage for commercial and residential properties against damage.</em></p>
+    <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#product-22" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
+  </div>
+</div>
+<div class="hero-slide-content" style="transition:opacity 0.5s ease;display:none">
+  <div class="content-flex v-flex-8">
+    <p class="hero-eyebrow">Corporate <span class="txt-icon-arrow is-square"> </span> Insurance</p>
+    <p class="hero-sub">Crop Insurance: <em>protection for farmers against weather, pests, and disease losses.</em></p>
+    <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#product-6" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
   </div>
 </div>
 <div class="hero-slider-dots" style="position:absolute;bottom:12rem;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:0.5rem">
-  <button class="hero-slider-dot is-active" data-slide="0" onclick="goSlide(0)" aria-label="Slide 1" style="width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:#fff;cursor:pointer;padding:0;transition:all 0.2s"></button>
-  <button class="hero-slider-dot" data-slide="1" onclick="goSlide(1)" aria-label="Slide 2" style="width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:transparent;cursor:pointer;padding:0;transition:all 0.2s"></button>
 </div>
 <div class="hide w-embed"><style>
 /* Hero theme -- sky blue buttons, white text */
@@ -71,21 +86,33 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
 .hero-slide-content { max-width: 40rem; padding-bottom: 4.5rem; }
 .hero-slider-arrow:hover { background:rgba(255,255,255,0.3) !important; }
 
+/* Scrim overlay — boosts legibility of hero text over photography */
+.hero-slide-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(12,16,32,0.78) 0%, rgba(12,16,32,0.55) 38%, rgba(12,16,32,0.15) 100%),
+    linear-gradient(0deg, rgba(12,16,32,0.65) 0%, rgba(12,16,32,0.10) 45%, rgba(12,16,32,0.30) 100%);
+}
+
 /* Tint animated GIF icons to sky blue */
 .centered-card-slide .img-abs[src*=".gif"] {
   filter: hue-rotate(260deg) saturate(1.3);
 }
 
-/* Shared hero caption + subtext — identical for BOTH slides */
+/* Shared hero caption + subtext — identical across all slides, with high contrast */
 .is-hero-section .hero-eyebrow {
   color: #ffffff;
-  opacity: 0.85;
+  opacity: 1;
   margin: 0 0 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: clamp(0.9rem, 1.4vw, 1.2rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.35;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.55);
 }
 .is-hero-section .hero-sub {
   color: #ffffff;
@@ -94,21 +121,29 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
   text-transform: none;
   letter-spacing: -0.01em;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.4;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 .is-hero-section .hero-sub em {
   font-style: italic;
-  font-weight: 500;
-  color: #ffffff;
+  font-weight: 600;
+  color: #eaf6fd;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 /* Responsive hero backgrounds — serve smaller variants on small screens */
-.hero-slide-bg--personal {
-  background-image: url(/assets/images/hero-images/personal-insurance-p-800.jpg);
+.hero-slide-bg--1 {
+  background-image: url(/assets/images/hero-images/raib-hero-private-motor.jpg);
 }
-.hero-slide-bg--corporate {
-  background-image: url(/assets/images/hero-images/corporate1-p-800.jpg);
+.hero-slide-bg--2 {
+  background-image: url(/assets/images/hero-images/raib-hero-marine-cargo.jpg);
+}
+.hero-slide-bg--3 {
+  background-image: url(/assets/images/hero-images/raib-hero-industrial-all-risk.jpg);
+}
+.hero-slide-bg--4 {
+  background-image: url(/assets/images/hero-images/raib-hero-agri-weather.jpg);
 }
 @media (min-width: 768px) {
   .hero-slide-bg--personal {
@@ -444,11 +479,35 @@ document.addEventListener("DOMContentLoaded", function() {
 (function () {
   var bgs = Array.prototype.slice.call(document.querySelectorAll('.hero-slide-bg'));
   var contents = Array.prototype.slice.call(document.querySelectorAll('.hero-slide-content'));
-  var dots = Array.prototype.slice.call(document.querySelectorAll('.hero-slider-dot'));
+  var dotsWrap = document.querySelector('.hero-slider-dots');
   if (!bgs.length) return;
   var current = 0;
   var timer = null;
   var DELAY = 6000;
+
+  // Build pagination dots to match the number of slides
+  var dots = [];
+  if (dotsWrap) {
+    bgs.forEach(function (el, idx) {
+      var dot = document.createElement('button');
+      dot.className = 'hero-slider-dot' + (idx === 0 ? ' is-active' : '');
+      dot.setAttribute('data-slide', idx);
+      dot.setAttribute('aria-label', 'Slide ' + (idx + 1));
+      dot.style.width = '12px';
+      dot.style.height = '12px';
+      dot.style.borderRadius = '50%';
+      dot.style.border = '2px solid #fff';
+      dot.style.background = idx === 0 ? '#fff' : 'transparent';
+      dot.style.cursor = 'pointer';
+      dot.style.padding = '0';
+      dot.style.transition = 'all 0.2s';
+      dot.addEventListener('click', function () { goSlide(idx); });
+      dotsWrap.appendChild(dot);
+      dots.push(dot);
+    });
+  } else {
+    dots = Array.prototype.slice.call(document.querySelectorAll('.hero-slider-dot'));
+  }
 
   function goSlide(i) {
     current = (i % bgs.length + bgs.length) % bgs.length;
@@ -463,7 +522,9 @@ document.addEventListener("DOMContentLoaded", function() {
       el.style.display = on ? '' : 'none';
     });
     dots.forEach(function (el, idx) {
-      el.classList.toggle('is-active', idx === current);
+      var on = idx === current;
+      el.classList.toggle('is-active', on);
+      el.style.background = on ? '#fff' : 'transparent';
     });
   }
   window.goSlide = goSlide;

@@ -10,9 +10,9 @@ include __DIR__ . '/../includes/nav_tail.php';
 <?php
 about_render_hero($about['hero']);
 about_render_vision_mission($about);
+about_render_values($about);
 about_render_underwriters($about);
 about_render_ceo_narrative($about);
-about_render_values($about);
 about_render_kpis($about['kpis']);
 about_render_team($about);
 about_render_service_standards($about['service_standards']);

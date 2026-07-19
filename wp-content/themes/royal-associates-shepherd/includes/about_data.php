@@ -45,7 +45,14 @@ return [
         'name' => 'Late Paul Kasema',
         'title' => 'Founding Chair',
         'image' => '/assets/images/exec-photos/pk.webp',
-        'quote' => 'Royal Associates has reached the status of a national player within a relatively short time. The foundation of our success is the commitment of quality individuals who work together tirelessly to serve our clients with passion and dedication. We recognize the immense opportunities that new and emerging technologies offer — yet technology cannot replace the human touch.',
+        'paragraphs' => [
+            'Royal Associates Insurance Brokers has reached the status of a national player within a relatively short time. The foundation of our success is the commitment of quality individuals who work together tirelessly to serve our clients with passion and dedication.',
+            'Our growth is also as a result of our willingness to learn and to embrace new ideas. Therefore, we are able to respond to our clients’ unique needs by creating innovative insurance risk solutions that are backed by expert advice and first-class care and support.',
+            'We recognize the immense opportunities that new and emerging technologies offer. Hence, we have invested substantially in technology so as to gain efficiencies and enhance customer experience. Going into the future, this will continue to be an area of focus for us.',
+            'It is without question that technology, regardless of all the benefits it brings, cannot replace the human touch. We will therefore continue to develop innovative customer-facing distribution approaches to achieve the widest possible reach of our products. Subject to the relevant regulatory approvals, we will be the first insurance brokerage in East and Central Africa to adopt a network marketing business model to deliver retail insurance.',
+            'We are aware that our strength also depends on our partners. We are quite fortunate to have strong partnerships with all Class A underwriters, all who have a strong claims settlement philosophy.',
+            'We greatly value your continued friendship and support. Together, the future can only be brighter.',
+        ],
     ],
 
     'esp_image' => '/assets/images/about/esp-diagram.webp',
@@ -68,8 +75,10 @@ return [
 
     'service_standards' => [
         ['title' => 'Quotations in 1 hour', 'body' => 'We prepare and provide quotation requests within one hour of your enquiry.', 'short' => 'Quotations'],
-        ['title' => 'Policies in 5 days', 'body' => 'Policy documents prepared and released within five working days.', 'short' => 'Policies'],
-        ['title' => 'Claims in 4 hours', 'body' => 'All claims made by phone are acknowledged and followed up by email within four hours.', 'short' => 'Claims'],
+        ['title' => 'Policy Document in 21 days', 'body' => 'Policy documents are prepared and issued within twenty-one (21) working days of cover confirmation.', 'short' => 'Policy Document'],
+        ['title' => 'Policy Endorsements in 7 days', 'body' => 'Policy endorsements are processed and issued within seven (7) working days of your request.', 'short' => 'Endorsements'],
+        ['title' => 'Cover Placements Immediately', 'body' => 'Cover is placed immediately upon agreement, so your protection begins without delay.', 'short' => 'Cover Placements'],
+        ['title' => 'Claims — motor claims 7 days upon issuance of repair authority', 'body' => 'Motor claims are settled within seven (7) days upon issuance of the repair authority.', 'short' => 'Motor Claims'],
         ['title' => 'Site visits in 24 hours', 'body' => 'We visit and assess site or garage within 24 working hours upon notification.', 'short' => 'Site Visits'],
         ['title' => 'Email within 24 hours', 'body' => 'Every email receives a prompt response within 24 hours.', 'short' => 'Email'],
         ['title' => 'Serve within 15 minutes', 'body' => 'We endeavour to serve all clients within 15 minutes of contact.', 'short' => 'Service'],
@@ -93,7 +102,7 @@ return [
     'offices' => [
         ['name' => 'Head Office — Nairobi', 'address' => 'Westlands Business Park, 3rd Floor, Chiromo Lane, Opposite GTC Residence, Westlands, Nairobi', 'email' => 'info@royalassociates.co.ke'],
         ['name' => 'Mombasa Branch', 'address' => 'Nyali Centre, 2nd Floor, Links Road, Mombasa'],
-        ['name' => 'Machakos Branch', 'address' => 'Opposite Machakos Stadium'],
+        ['name' => 'Machakos Branch', 'address' => 'Kasinga House, Ground floor, opposite Machakos Stadium. Next to Chroride Exide shop.', 'phone' => '+254726545469 / +254722372522 / +254708271196'],
         ['name' => 'Rwanda Branch', 'address' => 'Makuza Peace Plaza, 4th Floor, P.O. Box 2554, Kigali, Rwanda', 'phone' => '+250 788 601 449'],
     ],
 
@@ -119,6 +128,52 @@ return [
         'body' => 'We venture into unknown waters and embrace new ideas. Through creativity and innovation, we design and structure unique risk and financial solutions that offer the best coverage possible for our clients.<br><br>We are a truly listening partner, endeavoring to understand our clients\' unique insurance needs, and seeking to come up with practical and innovative solutions to meet those needs.<br><br>At Royal Associates Insurance Brokers Limited, we are deeply committed to our higher aspirations of helping people achieve peace of mind by securing their social and financial wellbeing.',
         'cta_label' => 'CONTACT US',
         'cta_href' => '/contact',
+    ],
+
+    'board' => [
+        [
+            'name'  => 'Lillian Kwimba',
+            'title' => 'Executive Director',
+            'image' => '/assets/images/royal_team_photos/senior_management_team/Lillian_Kwimba_Executive_Director.webp',
+            'bio'   => [
+                'Lillian, a BCom (Marketing) graduate from the University of Nairobi, has over 25 years experience in insurance broking. She worked in senior positions at Alexander Forbes Insurance Brokers and as Broking, Business Development and Strategy Manager at Starlit Insurance Brokers.',
+                'Lillian has handled virtually all the major insurance risks in Kenya, is highly technical, and has a tremendous commitment to staff, and focus on customer care.',
+            ],
+        ],
+        [
+            'name'  => 'Peter Gichana',
+            'title' => 'Director, Strategic Management',
+            'image' => '/assets/images/royal_team_photos/board_of_directors/Peter_Gichana_Director_Strategic_Management.webp',
+            'bio'   => [
+                'Peter is hands-on, multi-skilled, highly adaptable strategic management professional and key problem solver, possessing over 29 years of successful, multi-sector track record of delivering optimum business results to For-Profit and Not-For-Profit entities.',
+                'Peter is highly skilled/experienced in Financial Analysis, Need Gap Analysis, Business Modelling, HR BSC SMART KPI Setting, OD, ISO 9001/14001/18001, Petroleum Technology, Business Process Mapping, Project Management & Implementation, Strategic Planning, Market Research, COBOL Computer Programming, Environmental & Social Impact Assessment/Audit (ESIA), and Team Building/Stakeholder Relationships.',
+                'Peter worked as a Financial Analyst with Kenol-Kobil before he was promoted to the position of Production and Logistics Manager. Peter then moved on to G4S as the General Manager Distribution. Thereafter, Peter joined the Insurance/Financial Services/Hospitality/Real Estate sector as Group CEO/Board Member of The Monarch Group (The Monarch Group comprises Anglo-African Property Holdings Ltd, Tamasha Corporation Ltd, The Monarch Insurance, Worldspace Ltd and Jambo Chester House Hotels & Lodges). Subsequently Peter was appointed the MD Security Group Tanzania Ltd and then promoted to Group Director Strategy/OD for Security Group Africa in charge of Kenya, Uganda and Tanzania.',
+                'Peter is currently engaged as the Lead Management Consultant in Strategy, BPR, Training and Project Management at Finbridge Consulting Group Ltd.',
+                'Peter earned a BCom (Hons.) Degree in Accounting & Finance from the University of Nairobi, a PG Diploma in Marketing Management/OR from the Mediterranean Institute of Management Cyprus, an MBA Degree in Corporate Strategy (GPA 4.0) from the Washington International University (USA) and a PhD in Strategic Management from the Central State University of New York (USA). Peter has also trained in petroleum technology, operations and distribution of refined products, lubricants and specialties at The College of Petroleum & Energy Studies, Oxford, UK.',
+                'Peter has trained as a Corporate Governance expert at the Institute of Corporate Governance Nairobi, as well as with Bureau VERITAS on ISO 9001 (QMS), ISO 14001 (EMS) and ISO 18001 (OHSAS).',
+                'Peter has also trained as an Environmental & Social Impact Assessment Auditor by Africa Nazarene University, Nairobi, and is registered with NEMA, Kenya, as a practitioner in environmental impact assessment & audit. Peter is a member of The Kenya Institute of Management, The British Institute of Management, The Institute of Energy (UK), The Institute of Petroleum (UK), Academia (USA) and The Institute of Logistics & Chartered Transport.',
+            ],
+        ],
+        [
+            'name'  => 'Dr. Omar (Farouk) Sherman HSC',
+            'title' => 'Director, Chairman Kipini Wildlife & Botanical Conservancy, Lamu/Tana River Counties',
+            'image' => '/assets/images/royal_team_photos/board_of_directors/Dr_Omar_Farouk_Sherman_Director_Chairman_Kipini_Conservancy.webp',
+            'bio'   => [
+                'Dr. Sherman, popularly known as Farouk, holds a Diploma in Engineering Production of City and Guilds of London, a BSc Degree in Food Science from the University of Nairobi and a Degree in International Marketing from Harvard University, Boston, USA. He has also carried out research on wheat flour, relating to non-coeliac gluten sensitivity, and the resultant Celiac/IBS/Acid Reflux diseases in humans, under the auspices of Professor Imunge of the Department of Food Science at the University of Nairobi and also at the Detmold Research Institute in Germany.',
+                'Dr. Sherman was decorated by H.E. President Daniel arap Moi — the second president of Kenya — for his role in conservation and research work and awarded the Head of State Commendation (HSC). He was nominated to the UNESCO Award for Heritage and Conservation and also by the Sultan Qaboos of Oman’s award for Heritage Conservation.',
+                'Dr. Sherman was awarded an Honorary Doctorate of Philosophy by the University of Brentwick, UK, in the year 2000. He has also been nominated for the award of an Honorary Doctorate by the University of Nairobi.',
+                'Dr. Sherman is a philanthropist, businessman and is a highly regarded and networked person in Africa, Europe, USA and China.',
+            ],
+        ],
+        [
+            'name'  => 'Jay Kothari',
+            'title' => 'Strategy and Operations Advisor',
+            'image' => '/assets/images/royal_team_photos/board_of_directors/Jay_Kothari_Strategy_and_Operations_Advisor.webp',
+            'bio'   => [
+                'Jay has a strong background in delivering strategic and operational results for private and public sector companies operating on a local, regional or global basis. Jay has delivered results for Fortune 500 companies across North America, Europe and Africa.',
+                'He is an advisor to strategic growth, business process automation, HR transformation, enterprise cost reduction and implementing cutting edge technologies. Jay is a Lean Six Sigma Black Belt Certified, with a PMP and an Honors degree in Aeronautical Engineering.',
+            ],
+        ],
     ],
 
 ];

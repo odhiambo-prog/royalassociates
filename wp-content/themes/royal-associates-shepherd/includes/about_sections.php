@@ -8,6 +8,38 @@ function about_heading_icon(string $color = '#00ADEF'): string
     return '<div class="heading-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17 34" fill="none"><path d="M16.9706 16.9705L2.07015e-05 -0.00010423L1.85557e-05 16.9705L1.641e-05 33.941L16.9706 16.9705Z" fill="' . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . '"></path></svg></div>';
 }
 
+/**
+ * Thin-line (Lucide-equivalent) SVG path sets for the circle-badge icons.
+ * Each value is the inner markup of a 24x24 viewBox SVG (stroke-based, fill:none).
+ */
+function about_icon_paths(): array
+{
+    return [
+        'eye' => '<circle cx="12" cy="12" r="9"/><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/>',
+        'target' => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/>',
+        'heart' => '<path d="M12 20s-7-4.5-9.5-9C1 8 3 4.5 6.5 4.5 9 4.5 12 7 12 7s3-2.5 5.5-2.5C21 4.5 23 8 21.5 11 19 15.5 12 20 12 20Z"/>',
+        'handshake' => '<path d="M11 17.5 5 12l2-2 3 3 3-3 4 4"/><path d="M14 9.5 16 7.5l3 3"/><path d="M3 9.5 6 6.5l3.5 3"/>',
+        'sparkles' => '<path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3Z"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14Z"/>',
+        'lightbulb' => '<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3Z"/>',
+        'award' => '<circle cx="12" cy="9" r="5"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/>',
+        'users' => '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 5.5a3 3 0 0 1 0 5.6"/><path d="M17.5 14c2.2.4 4 2.2 4 5"/>',
+    ];
+}
+
+/**
+ * Circular line-icon badge — PDF "icon-in-circle" motif.
+ * $name must be a key from about_icon_paths().
+ */
+function about_icon_badge(string $name, int $size = 64): string
+{
+    $paths = about_icon_paths();
+    $inner = $paths[$name] ?? $paths['eye'];
+    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" '
+        . 'fill="none" stroke="#00ADEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        . $inner . '</svg>';
+    return '<span class="about-icon-badge" style="--badge-size:' . $size . 'px" aria-hidden="true">' . $svg . '</span>';
+}
+
 function about_button(string $href, string $label, string $variant = 'primary'): string
 {
     $href = htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
@@ -123,8 +155,7 @@ function about_get_team_group_members(string $folder): array
     $files = array_merge(
         glob($dir . '/*.webp') ?: [],
         glob($dir . '/*.jpg') ?: [],
-        glob($dir . '/*.jpeg') ?: [],
-        glob($dir . '/*.webp') ?: []
+        glob($dir . '/*.jpeg') ?: []
     );
     sort($files, SORT_NATURAL);
     $members = [];
@@ -172,7 +203,7 @@ function about_render_hero(array $hero): void
 <section class="u-section u-theme-brand" style="--swatch--dark:#00ADEF;--swatch--light:#fff">
   <div class="pages-hero-grid u-grid-custom" style="display:grid;grid-template-columns:1fr 1fr">
     <div class="hero-grid-left" style="background-color:#2A2D8A;color:#ffffff">
-      <div class="hero-grid-left-max" style="margin-left:0;padding:0 4rem;justify-content:center;display:flex;min-height:min(90vh,65rem)">
+      <div class="hero-grid-left-max" style="margin-left:0;padding:0 4rem;justify-content:center;display:flex;min-height:auto">
         <div class="section_spacer is-pages-hero">
           <div class="u-container is-hero">
             <div class="u-content v-flex-8">
@@ -205,23 +236,40 @@ function about_render_vision_mission(array $data): void
 {
     $vision = htmlspecialchars($data['vision'], ENT_QUOTES, 'UTF-8');
     $mission = htmlspecialchars($data['mission'], ENT_QUOTES, 'UTF-8');
-    $strength = htmlspecialchars($data['strength'], ENT_QUOTES, 'UTF-8');
     ?>
 <section class="u-section u-theme-light" style="background-color:#f4f8fc">
   <div class="section_spacer">
     <div class="u-container">
       <div class="u-content v-flex-8">
-        <div class="about-centered-txt-wrap">
-          <div class="about-large-txt u-text-style-h2" style="color:#2A2D8A">
-            <span class="small-about-txt u-text-style-small" style="color:#00ADEF">our vision </span><?= $vision ?>
-            <span class="small-about-txt u-text-style-small" style="color:#00ADEF"> our mission </span><?= $mission ?>
+        <div class="about-vm-grid">
+          <div class="about-vm-block">
+            <div class="about-vm-head">
+              <?= about_icon_badge('eye') ?>
+              <p class="about-vm-label u-text-style-small" style="color:#00ADEF;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;font-size:1.6rem;margin:0">Our Vision</p>
+            </div>
+            <p class="about-vm-text" style="color:#2A2D8A;font-size:1.5rem;line-height:1.6;max-width:34ch;margin:0.75rem 0 0"><?= $vision ?></p>
+          </div>
+          <div class="about-vm-block">
+            <div class="about-vm-head">
+              <?= about_icon_badge('target') ?>
+              <p class="about-vm-label u-text-style-small" style="color:#00ADEF;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;font-size:1.6rem;margin:0">Our Mission</p>
+            </div>
+            <p class="about-vm-text" style="color:#2A2D8A;font-size:1.5rem;line-height:1.6;max-width:34ch;margin:0.75rem 0 0"><?= $mission ?></p>
           </div>
         </div>
-        <p class="u-text-style-main" style="text-align:center;max-width:52rem;margin:2rem auto 0;color:#2A2D8A"><?= $strength ?></p>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+.about-vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.75rem,4vw,3.5rem);align-items:stretch}
+.about-vm-block{height:100%;padding:clamp(1.5rem,3vw,2.25rem);background:#ffffff;border:1px solid #e3e8f0;border-left:5px solid #00ADEF;border-radius:8px}
+.about-vm-head{display:flex;align-items:center;gap:clamp(0.75rem,1.5vw,1.1rem)}
+@media (max-width:720px){
+  .about-vm-grid{grid-template-columns:1fr}
+}
+</style>
     <?php
 }
 
@@ -270,7 +318,9 @@ function about_render_ceo_narrative(array $data): void
         <div class="about-message-card about-message-card--chair">
           <div class="about-message-card__content">
             <p class="u-text-style-small about-message-card__eyebrow"><?= htmlspecialchars($chair['title'], ENT_QUOTES, 'UTF-8') ?></p>
-            <p class="u-text-style-main" style="font-style:italic;color:rgba(255,255,255,0.92);margin:0">&ldquo;<?= htmlspecialchars($chair['quote'], ENT_QUOTES, 'UTF-8') ?>&rdquo;</p>
+            <?php foreach ($chair['paragraphs'] as $p): ?>
+            <p class="u-text-style-main" style="color:rgba(255,255,255,0.9)"><?= htmlspecialchars($p, ENT_QUOTES, 'UTF-8') ?></p>
+            <?php endforeach; ?>
             <p class="u-text-style-small" style="margin-top:1.25rem;opacity:0.75">— <?= htmlspecialchars($chair['name'], ENT_QUOTES, 'UTF-8') ?></p>
           </div>
           <div class="about-message-card__visual">
@@ -302,46 +352,51 @@ function about_render_values(array $data): void
 {
     $intro = htmlspecialchars($data['values_intro'], ENT_QUOTES, 'UTF-8');
     $icon = about_heading_icon('#00ADEF');
-    $count = count($data['values']);
+    $strength = htmlspecialchars($data['strength'], ENT_QUOTES, 'UTF-8');
+
+    // Map each core value to its circle-badge icon (PDF "icon-in-circle" motif).
+    $valueIcons = [
+        'Passion' => 'heart',
+        'Trust' => 'handshake',
+        'WOW Service' => 'sparkles',
+        'Learning & Innovation' => 'lightbulb',
+        'Excellence' => 'award',
+    ];
     ?>
-<section class="u-section u-theme-beige is-core-values" style="background:#f8f6f2">
+<section class="u-section u-theme-light about-wwa-values" style="background:#f8f6f2">
   <div class="section_spacer">
     <div class="u-container">
-      <div class="u-content v-flex-8 is-core">
-        <div class="core-values-wrap">
-          <div class="core-value-top">
-            <div class="section-content-flex v-flex-5">
-              <div class="section-header-grid u-grid-custom">
-                <div class="section-header-title-col u-column-span-2">
-                  <?= $icon ?>
-                  <h2 class="section-heading u-text-style-h3" style="color:#2A2D8A">Our core values.</h2>
-                </div>
-                <div><div class="u-text-style-main" style="color:#2A2D8A"><?= $intro ?></div></div>
-              </div>
+      <div class="u-content v-flex-8">
+        <div class="section-header-grid u-grid-custom">
+          <div class="section-header-title-col u-column-span-2">
+            <?= $icon ?>
+            <h2 class="section-heading u-text-style-h3" style="color:#2A2D8A">Our core values.</h2>
+          </div>
+          <div><div class="u-text-style-main" style="color:#2A2D8A"><?= $intro ?></div></div>
+        </div>
+
+        <ul class="about-values-list">
+          <?php foreach ($data['values'] as $value):
+            $title = htmlspecialchars($value['title'], ENT_QUOTES, 'UTF-8');
+            $body = htmlspecialchars($value['body'], ENT_QUOTES, 'UTF-8');
+            $badge = $valueIcons[$value['title']] ?? 'sparkles';
+          ?>
+          <li class="about-value-row">
+            <div class="about-value-content">
+              <span class="about-value-name"><?= $title ?>:</span>
+              <span class="about-value-body"><?= $body ?></span>
             </div>
-          </div>
-          <div class="core-values-abs">
-            <div class="core-values-flex">
-              <?php foreach ($data['values'] as $i => $value):
-                $isLast = $i === $count - 1 ? ' is-last' : '';
-                $title = htmlspecialchars($value['title'], ENT_QUOTES, 'UTF-8');
-                $body = htmlspecialchars($value['body'], ENT_QUOTES, 'UTF-8');
-              ?>
-              <div class="value-bloc<?= $isLast ?>">
-                <h3 class="values-txt u-text-style-h2" style="color:#2A2D8A"><span class="txt-icon-arrow">&nbsp;</span> <em><?= $title ?>.<br></em><?= $body ?></h3>
-              </div>
-              <?php endforeach; ?>
-            </div>
-          </div>
-          <div class="core-values-nav-wrap">
-            <?php for ($i = 0; $i < $count; $i++): ?><div class="core-value-nav"></div><?php endfor; ?>
-          </div>
+          </li>
+          <?php endforeach; ?>
+        </ul>
+
+        <div class="about-strength">
+          <?= about_icon_badge('users', 56) ?>
+          <h3 class="about-strength-heading u-text-style-h3" style="color:#2A2D8A">Our Strength</h3>
+          <p class="about-strength-text u-text-style-main" style="color:#2A2D8A"><?= $strength ?></p>
         </div>
       </div>
     </div>
-  </div>
-  <div class="forced-scroll-section-triggers">
-    <?php for ($i = 0; $i < $count; $i++): ?><div class="trigger"></div><?php endfor; ?>
   </div>
 </section>
     <?php
@@ -384,6 +439,12 @@ function about_render_team(array $data): void
         </div>
 
         <?php foreach ($groups as $group):
+            $isBoard = ($group['folder'] ?? '') === 'board_of_directors';
+            if ($isBoard) {
+                // Board directors are shown as bios below; skip the redundant photo marquee.
+                about_render_board($data['board'] ?? []);
+                continue;
+            }
             $members = array_values(array_filter(
                 about_get_team_group_members($group['folder']),
                 static fn(array $person): bool => empty($person['is_group'])
@@ -426,6 +487,68 @@ function about_render_team(array $data): void
     </div>
   </div>
 </section>
+    <?php
+}
+
+function about_render_director(array $member): void
+{
+    $name = htmlspecialchars($member['name'], ENT_QUOTES, 'UTF-8');
+    $title = htmlspecialchars($member['title'], ENT_QUOTES, 'UTF-8');
+    $img = htmlspecialchars($member['image'], ENT_QUOTES, 'UTF-8');
+    $bios = $member['bio'] ?? [];
+    ?>
+<article class="director">
+  <img class="director-photo" src="<?= $img ?>" loading="lazy" alt="<?= $name ?>">
+  <div class="director-body">
+    <div class="director-head">
+      <h3 class="director-name"><?= $name ?></h3>
+      <p class="director-title"><?= $title ?></p>
+    </div>
+    <?php foreach ($bios as $para): ?>
+    <p class="director-bio"><?= htmlspecialchars($para, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endforeach; ?>
+  </div>
+</article>
+    <?php
+}
+
+function about_render_board(array $board): void
+{
+    if (empty($board)) {
+        return;
+    }
+    $icon = about_heading_icon();
+    // Distribute across two independent columns so both fill (no orphaned row):
+    // left = Lillian + Peter, right = Dr. Omar + Jay.
+    $left = [];
+    $right = [];
+    foreach ($board as $member) {
+        $n = $member['name'] ?? '';
+        if (strpos($n, 'Omar') !== false || strpos($n, 'Jay') === 0) {
+            $right[] = $member;
+        } else {
+            $left[] = $member;
+        }
+    }
+    ?>
+<div class="about-board-bios">
+  <div class="section-header-grid u-grid-custom" style="margin-bottom:clamp(1.5rem,3vw,2.5rem)">
+    <div class="section-header-title-col u-column-span-2">
+      <?= $icon ?>
+      <h2 class="section-heading u-text-style-h3" style="color:#2A2D8A">Board of Directors</h2>
+    </div>
+    <div><div class="u-text-style-main" style="color:#2A2D8A">The leadership guiding Royal Associates Insurance Brokers Limited — for all your insurance solutions, because we care.</div></div>
+  </div>
+
+  <div class="directors-flow">
+    <div class="directors-col directors-col--left">
+      <?php foreach ($left as $member): about_render_director($member); endforeach; ?>
+    </div>
+    <div class="directors-col directors-col--right">
+      <?php foreach ($right as $member): about_render_director($member); endforeach; ?>
+    </div>
+  </div>
+</div>
     <?php
 }
 
@@ -608,6 +731,94 @@ function about_render_styles(): void
 {
     ?>
 <div class="hide w-embed"><style>
+/* Circle-badge line icons — PDF "icon-in-circle" motif */
+.about-icon-badge {
+  flex: 0 0 auto;
+  width: var(--badge-size, 64px);
+  height: var(--badge-size, 64px);
+  border-radius: 50%;
+  border: 1.5px solid #00ADEF;
+  background: rgba(0, 173, 239, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-icon-badge svg { width: 28px; height: 28px; display: block; }
+
+/* Vision/Mission: icon and title sit on the same row */
+.about-vm-block .about-icon-badge { flex: 0 0 auto; }
+.about-vm-head .about-vm-label { line-height: 1.2; }
+
+/* Core Values as a vertical list (brand-document feel, not a card grid) */
+.about-wwa-values .about-values-list {
+  list-style: none;
+  margin: 2.5rem auto 0;
+  padding: 0;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+.about-value-row {
+  display: flex;
+  justify-content: center;
+}
+/* Fixed-width name column (right-aligned) + body column → all colons align,
+   regardless of how long each value name is. Body lines wrap at the colon level. */
+.about-value-content {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  column-gap: 0.6em;
+  align-items: baseline;
+  max-width: 52rem;
+  width: 100%;
+}
+.about-value-name {
+  color: #2A2D8A;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2vw, 1.65rem);
+  line-height: 1.6;
+  white-space: nowrap;
+  text-align: right;
+}
+.about-value-body {
+  margin: 0;
+  color: #4A4A4A;
+  font-size: clamp(1.4rem, 2vw, 1.65rem);
+  line-height: 1.6;
+}
+
+/* Strength — centered block beneath the values list */
+.about-strength {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  text-align: center;
+  background: rgba(0, 173, 239, 0.04);
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about-strength .about-icon-badge { margin-bottom: 1rem; }
+.about-strength-heading {
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.about-strength-text {
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  line-height: 1.6;
+}
+
+@media (max-width: 720px) {
+  .about-icon-badge { --badge-size: 48px !important; }
+  .about-icon-badge svg { width: 22px !important; height: 22px !important; }
+  .about-value-row { gap: 0.85rem; }
+}
+
 @keyframes about-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-100% - 4rem)); }
@@ -645,8 +856,42 @@ function about_render_styles(): void
 }
 
 .about-team-section { padding-bottom: 1rem; overflow: hidden; }
-.about-team-group { margin-top: 2.75rem; }
-.about-team-group-title { color: #00ADEF; margin: 0 0 1.25rem; text-align: center; }
+.about-team-section > .u-container > .u-content > div > .u-text-style-main { font-size: 1.15rem; }
+
+.about-board-bios { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.directors-flow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(2rem, 5vw, 4rem);
+  align-items: start;            /* independent columns = no whitespace */
+}
+.director { display: flex; align-items: flex-start; gap: clamp(1rem, 2vw, 1.5rem); margin-bottom: clamp(2rem, 4vw, 3rem); }
+.director-photo {
+  flex: 0 0 auto;
+  width: clamp(7.5rem, 13vw, 10.5rem);   /* matches team-image size */
+  height: clamp(7.5rem, 13vw, 10.5rem);
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;       /* matches team-image style */
+  object-fit: cover;
+  object-position: center top;
+}
+.director-body { flex: 1 1 auto; min-width: 0; }   /* fills beside the photo, no float gap */
+.director-head { margin-top: 0.2rem; }
+.director-name { color: #2A2D8A; font-weight: 700; font-size: 1.5rem; line-height: 1.25; margin: 0; }
+.director-title { color: #00ADEF; font-weight: 500; font-size: 1.1rem; line-height: 1.35; margin: 0.35rem 0 0; }
+.director-bio { color: #4A4A4A; font-size: 1.1rem; line-height: 1.6; margin: 0.6rem 0 0.75rem; }
+.director-bio:last-child { margin-bottom: 0; }
+
+@media (max-width: 768px) {
+  .directors-flow { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 360px) {
+  .director { flex-direction: column; align-items: center; text-align: center; }
+  .director-photo { margin: 0 0 1rem; }
+}
+.about-team-group { margin-top: 3.25rem; }
+.about-team-group-title { color: #00ADEF; margin: 0 0 1.5rem; text-align: center; font-size: 1.5rem; }
 
 .about-team-marquee { position: relative; }
 .about-team-marquee__viewport { display: flex; justify-content: center; padding: 1rem 0 0.5rem; }
@@ -655,22 +900,22 @@ function about_render_styles(): void
 }
 
 .about-team-member {
-  flex: 0 0 auto; width: clamp(7rem, 11vw, 9.5rem);
+  flex: 0 0 auto; width: clamp(9rem, 14vw, 12rem);
   text-align: center;
 }
 .about-team-member__photo {
-  width: clamp(5.5rem, 10vw, 8rem); height: clamp(5.5rem, 10vw, 8rem);
-  margin: 0 auto 0.75rem; border-radius: 50%; overflow: hidden;
+  width: clamp(7.5rem, 13vw, 10.5rem); height: clamp(7.5rem, 13vw, 10.5rem);
+  margin: 0 auto 0.85rem; border-radius: 50%; overflow: hidden;
   background: transparent;
 }
 .about-team-member__photo img {
   width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
 }
 .about-team-member__name {
-  color: #2A2D8A; font-weight: 600; font-size: 0.88rem; line-height: 1.3;
+  color: #2A2D8A; font-weight: 600; font-size: 1.02rem; line-height: 1.35;
 }
 .about-team-member__role {
-  color: #00ADEF; font-size: 0.72rem; margin-top: 0.2rem; line-height: 1.35;
+  color: #00ADEF; font-size: 0.82rem; margin-top: 0.25rem; line-height: 1.4;
 }
 
 .about-charter-section { background: #fff; }

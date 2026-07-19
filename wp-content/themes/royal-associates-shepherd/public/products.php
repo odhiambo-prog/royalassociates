@@ -46,7 +46,7 @@ CARD;
   <section class="u-section u-theme-brand" style="--swatch--dark:#00ADEF;--swatch--light:#fff">
     <div class="pages-hero-grid u-grid-custom" style="display:grid;grid-template-columns:1fr 1fr">
       <div class="hero-grid-left" style="background-color:#2A2D8A;color:#ffffff">
-        <div class="hero-grid-left-max" style="margin-left:0;padding:0 4rem;justify-content:center;display:flex;min-height:min(90vh,65rem)">
+        <div class="hero-grid-left-max" style="margin-left:0;padding:0 4rem;justify-content:center;display:flex;min-height:auto">
           <div class="section_spacer is-pages-hero">
             <div class="u-container is-hero">
               <div class="u-content v-flex-8">
@@ -68,7 +68,7 @@ CARD;
         </div>
       </div>
       <div class="hero-grid-visual">
-        <div id="products-hero" class="u-visual">
+        <div id="products-hero" class="u-visual" style="background-color:#2A2D8A">
           <img src="/assets/images/hero-images/products-hero.webp" alt="Royal Associates insurance solutions" loading="lazy" style="width:100%;height:100%;object-fit:cover" class="u-visual-image">
           <div class="u-visual-bk"></div>
           <div class="img-overlay"></div>

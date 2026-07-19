@@ -521,38 +521,36 @@ html .slider_list > :not(.u-display-contents, .w-dyn-list),
   
   .wf-design-mode .swiper-wrapper{overflow: scroll}
   
+  /* Client request: remove the decorative black SVG/GIF arrows (txt-icon-arrow)
+     used in the core values section and section hero texts. Keep the spans in
+     markup but suppress the pseudo-element so no arrow glyph renders. */
   .txt-icon-arrow { display: inline-block; }
   .txt-icon-arrow::after {
-    content: "";
-    background: url('/assets/images/69611a94fd27dcb7d92996f3_Shep-Side-Swipe_001.gif') 0px 0px / contain no-repeat;
+    content: none;
+    background: none;
     display: inline-block;
     vertical-align: middle;
-    width: 0.75em;
-    height: 0.75em;
-    transform: translate(0px, 0em);
-    margin-bottom: -0.1em;
-    margin-top: -0.2em;
-    margin-left: -0.1em;
+    width: 0;
+    height: 0;
+    margin: 0;
   }
   .txt-icon-arrow.is-square::after {
-    background: url('/assets/images/69611a9408bbbdfa752a5db8_Shep-Square_001.gif') 0px 0px / contain no-repeat;
+    content: none;
+    background: none;
     display: inline-block;
     vertical-align: middle;
-    width: 0.85em;
-    height: 0.85em;
-    transform: translate(0px, 0em);
-    margin: -0.2em -0.2em -0.1em -0.3em;
+    width: 0;
+    height: 0;
+    margin: 0;
   }
   .txt-icon-arrow.is-up::after {
-    background: url('/assets/images/69611a94e4eaee353b11ad0b_Shep-Up_001.gif') 0px 0px / contain no-repeat;
+    content: none;
+    background: none;
     display: inline-block;
     vertical-align: middle;
-    width: 0.75em;
-    height: 0.75em;
-    transform: translate(0px, 0em);
-    margin-bottom: -0.1em;
-    margin-top: -0.2em;
-    margin-left: -0.1em;
+    width: 0;
+    height: 0;
+    margin: 0;
   }
   .txt-icon-arrow.is-img::after {
     background: url('/assets/images/69611b396cd12b4ce90fabfe_Group%202147210670.webp') 0px 0px / contain no-repeat;
