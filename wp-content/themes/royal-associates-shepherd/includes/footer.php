@@ -36,4 +36,19 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
+<script type="text/javascript">
+(function () {
+  document.querySelectorAll('.nav_subdrop_toggle').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var list = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!list) return;
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      list.hidden = open;
+    });
+  });
+})();
+</script>
 </body></html>

@@ -816,41 +816,60 @@ body:has(.nav_dropdown_component > [aria-expanded="true"]) .nav_drop_backdrop {
 }
 .nav_dropdown_list {
   display: block !important;
-  column-count: 2 !important;
-  column-gap: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
   width: max-content !important;
-  min-width: 34rem !important;
+  min-width: 20rem !important;
 }
-/* Keep category headings + their items together in a column */
-.nav_dropdown_heading,
-.nav_dropdown_item {
-  break-inside: avoid !important;
-  -webkit-column-break-inside: avoid !important;
-  page-break-inside: avoid !important;
-}
-.nav_dropdown_heading {
-  padding: 0.5rem 1.15rem 0.25rem !important;
-  font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
-  color: rgba(255,255,255,0.55) !important;
-}
-.nav_dropdown_heading .nav_links_text {
-  opacity: 1 !important;
-}
-.nav_dropdown_item {
+/* Category sub-dropdown (Corporate / Individual) */
+.nav_subdrop {
   width: 100%;
 }
-.nav_dropdown_link {
+.nav_subdrop_toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100% !important;
+  padding: 0.6rem 1.15rem !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  color: #fff !important;
+  font: inherit;
+  text-align: left;
+}
+.nav_subdrop_toggle .nav_links_svg {
+  width: 0.7rem;
+  transition: transform 0.25s ease;
+}
+.nav_subdrop_toggle[aria-expanded="true"] .nav_links_svg {
+  transform: rotate(180deg);
+}
+.nav_subdrop_toggle:hover {
+  background: rgba(255,255,255,0.08) !important;
+}
+.nav_subdrop_list {
+  list-style: none;
+  margin: 0 !important;
+  padding: 0 0 0.4rem 0 !important;
+}
+.nav_subdrop_list[hidden] {
+  display: none !important;
+}
+.nav_subdrop_item {
+  width: 100%;
+}
+.nav_subdrop_link {
   display: block !important;
-  padding: 0.5rem 1.15rem !important;
+  padding: 0.45rem 1.15rem 0.45rem 2.1rem !important;
   white-space: nowrap !important;
   width: 100% !important;
+  opacity: 0.9;
 }
-.nav_dropdown_link:hover {
+.nav_subdrop_link:hover {
   background: rgba(255,255,255,0.08) !important;
+  opacity: 1;
 }
 
 .nav_mobile_wrap {
@@ -896,4 +915,4 @@ body:has(.nav_dropdown_component > [aria-expanded="true"]) .nav_drop_backdrop {
 }
 
 
-</style></div><a href="#main" class="nav_skip_wrap w-inline-block"><div class="nav_skip_text u-text-style-small">Skip to main content</div></a><header class="nav_desktop_wrap"><div class="nav_desktop_contain"><div class="nav_desktop_layout"><a aria-label="Home Page" href="/" class="nav_desktop_logo w-inline-block<?= $navActive === 'home' ? ' w--current' : '' ?>"<?= $navActive === 'home' ? ' aria-current="page"' : '' ?>><img src="/assets/images/royal-logo.webp" alt="Royal Associates Insurance Brokers" class="logo-svg"></a><nav aria-label="Main" data-wf--menu--variant="desktop" class="nav_links_component w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><ul role="list" class="nav_links_wrap w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-list-unstyled"><li class="nav_links_item w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div class="nav_links_link w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div role="listitem" class="footer_group_item"><a href="/" class="footer_link_wrap w-inline-block<?= ($navActive ?? '') === 'home' ? ' w--current' : '' ?>"<?= ($navActive ?? '') === 'home' ? ' aria-current="page"' : '' ?>><div class="footer_link_text u-text-style-small">Home</div></a></div></div></li><li class="nav_links_item w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div data-delay="400" data-hover="true" class="nav_dropdown_component w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-dropdown"><div data-state="expanded" class="nav_links_link w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-dropdown-toggle" id="w-dropdown-toggle-0" aria-controls="w-dropdown-list-0" aria-haspopup="menu" aria-expanded="false" role="button" tabindex="0"><a href="/products/" class="w-inline-block"><div class="nav_links_text u-text-style-small">PRODUCTS</div></a><div class="nav_links_svg"><svg data-wf--icon-arrow--direction="bottom" viewBox="0 0 66 70" fill="none" width="100%" height="100%" aria-hidden="true" class="u-svg w-variant-caa8b8e9-e8ec-6eb3-4526-30f19f7326f5"><path d="M17 2L50 34.9999L17 68" class="u-path"></path></svg></div></div><nav class="nav_dropdown_mega_wrap w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-dropdown-list" id="w-dropdown-list-0" aria-labelledby="w-dropdown-toggle-0"><div class="nav_dropdown_mega_content w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div data-lenis-prevent="" class="nav_dropdown_mega_scroll"><div class="nav_dropdown_mega_contain w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div class="nav_dropdown_mega_layout w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><ul role="list" class="nav_dropdown_list"><li class="nav_dropdown_item"><a href="/products/" class="nav_dropdown_link w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-inline-block" tabindex="0"><div class="nav_links_text u-text-style-small">Overview</div></a></li><li class="nav_dropdown_item nav_dropdown_heading"><div class="nav_links_text u-text-style-small">Corporate Insurance</div></li><?php echo raib_product_nav_items("corporate"); ?><li class="nav_dropdown_item nav_dropdown_heading"><div class="nav_links_text u-text-style-small">Individual Insurance</div></li><?php echo raib_product_nav_items("individual"); ?></ul></div></div></div></div></nav>
+</style></div><a href="#main" class="nav_skip_wrap w-inline-block"><div class="nav_skip_text u-text-style-small">Skip to main content</div></a><header class="nav_desktop_wrap"><div class="nav_desktop_contain"><div class="nav_desktop_layout"><a aria-label="Home Page" href="/" class="nav_desktop_logo w-inline-block<?= $navActive === 'home' ? ' w--current' : '' ?>"<?= $navActive === 'home' ? ' aria-current="page"' : '' ?>><img src="/assets/images/royal-logo.webp" alt="Royal Associates Insurance Brokers" class="logo-svg"></a><nav aria-label="Main" data-wf--menu--variant="desktop" class="nav_links_component w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><ul role="list" class="nav_links_wrap w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-list-unstyled"><li class="nav_links_item w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div class="nav_links_link w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div role="listitem" class="footer_group_item"><a href="/" class="footer_link_wrap w-inline-block<?= ($navActive ?? '') === 'home' ? ' w--current' : '' ?>"<?= ($navActive ?? '') === 'home' ? ' aria-current="page"' : '' ?>><div class="footer_link_text u-text-style-small">Home</div></a></div></div></li><li class="nav_links_item w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div data-delay="400" data-hover="true" class="nav_dropdown_component w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-dropdown"><div data-state="expanded" class="nav_links_link w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-dropdown-toggle" id="w-dropdown-toggle-0" aria-controls="w-dropdown-list-0" aria-haspopup="menu" aria-expanded="false" role="button" tabindex="0"><a href="/products/" class="w-inline-block"><div class="nav_links_text u-text-style-small">PRODUCTS</div></a><div class="nav_links_svg"><svg data-wf--icon-arrow--direction="bottom" viewBox="0 0 66 70" fill="none" width="100%" height="100%" aria-hidden="true" class="u-svg w-variant-caa8b8e9-e8ec-6eb3-4526-30f19f7326f5"><path d="M17 2L50 34.9999L17 68" class="u-path"></path></svg></div></div><nav class="nav_dropdown_mega_wrap w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-dropdown-list" id="w-dropdown-list-0" aria-labelledby="w-dropdown-toggle-0"><div class="nav_dropdown_mega_content w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div data-lenis-prevent="" class="nav_dropdown_mega_scroll"><div class="nav_dropdown_mega_contain w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><div class="nav_dropdown_mega_layout w-variant-23049969-09ac-2789-520b-3c6ae895bbc6"><ul role="list" class="nav_dropdown_list"><li class="nav_dropdown_item"><a href="/products/" class="nav_dropdown_link w-variant-23049969-09ac-2789-520b-3c6ae895bbc6 w-inline-block" tabindex="0"><div class="nav_links_text u-text-style-small">Overview</div></a></li><?php echo raib_product_nav_groups(); ?></ul></div></div></div></div></nav>
