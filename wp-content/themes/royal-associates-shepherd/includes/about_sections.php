@@ -69,13 +69,13 @@ function about_starts_with(string $haystack, string $needle): bool
 
 function about_get_partner_logos(): array
 {
-    $dir = __DIR__ . '/../assets/images/partners/royal_partners_logos_transparent';
+    $dir = __DIR__ . '/../assets/images/partners/royal_strategic_partners_logos';
     if (!is_dir($dir)) {
         return [];
     }
-    $files = glob($dir . '/logo_*.webp') ?: [];
+    $files = glob($dir . '/*.png') ?: [];
     sort($files, SORT_NATURAL);
-    return array_map(static fn(string $path): string => '/assets/images/partners/royal_partners_logos_transparent/' . basename($path), $files);
+    return array_map(static fn(string $path): string => '/assets/images/partners/royal_strategic_partners_logos/' . basename($path), $files);
 }
 
 function about_parse_team_filename(string $filename): array
@@ -829,11 +829,11 @@ function about_render_styles(): void
 .ticker-wrap.is-offices:hover .ticker-coll-wrap { animation-play-state: paused; }
 
 .about-partners-section .solutions-logos {
-  height: 3.5rem; width: auto; max-width: 9rem; object-fit: contain;
-  opacity: 0.9; transition: opacity 0.3s ease, transform 0.3s ease;
+  height: 3.5rem; width: auto; max-width: 10rem; object-fit: contain;
+  transition: transform 0.3s ease;
 }
 .about-partners-section .ticker-coll-item:hover .solutions-logos {
-  opacity: 1; transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .about-kpis-section { margin-top: clamp(3rem, 6vw, 5rem); }
