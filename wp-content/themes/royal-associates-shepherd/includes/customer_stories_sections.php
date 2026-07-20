@@ -31,7 +31,7 @@ function cs_render_hero(): void
   <div class="pages-hero-grid u-grid-custom" style="display:grid;grid-template-columns:1fr 1fr">
     <div class="hero-grid-left" style="background-color:#2A2D8A;color:#ffffff">
       <div class="hero-grid-left-max" style="margin-left:0;padding:0 4rem;justify-content:center;display:flex;min-height:auto">
-        <div class="section_spacer is-pages-hero">
+        <div class="section_spacer is-pages-hero" style="padding-top:clamp(2.5rem,5vw,4.5rem);padding-bottom:clamp(2rem,4vw,3.5rem)">
           <div class="u-container is-hero">
             <div class="u-content v-flex-8">
               <div class="content-flex v-flex-8 u-justify-content-between">
@@ -54,7 +54,7 @@ function cs_render_hero(): void
     </div>
     <div class="hero-grid-visual">
       <div id="cs-hero" class="u-visual" style="background-color:#2A2D8A">
-        <img src="/assets/images/hero-images/stories.jpg" alt="Royal Associates clients" loading="lazy" style="width:100%;height:100%;object-fit:cover" class="u-visual-image">
+        <img src="/assets/images/hero-images/stories.jpg" alt="Royal Associates clients" loading="lazy" style="width:100%;height:100%;object-fit:contain;object-position:center" class="u-visual-image">
         <div class="u-visual-bk"></div>
         <div class="img-overlay"></div>
       </div>
