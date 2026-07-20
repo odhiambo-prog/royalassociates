@@ -22,4 +22,18 @@ createShowAnim();ScrollTrigger.create({start:"top top",end:99999,onUpdate:(self)
 function switchTo(i){if(i===activeIndex)return;const nextEl=$blocks.get(i);const prevEl=activeIndex>-1?$blocks.get(activeIndex):null;if(tl)tl.kill();$navItems.removeClass('is-active').eq(i).addClass('is-active');$blocks.each(function(idx){if(idx!==i&&idx!==activeIndex)resetBlock(this);});tl=gsap.timeline({defaults:{overwrite:!0},onComplete:()=>{activeIndex=i}});if(prevEl){gsap.killTweensOf(prevEl);tl.to(prevEl,{opacity:0,y:'-4rem',duration:0.3,ease:'power2.in'})}
 resetBlock(nextEl);tl.to(nextEl,{opacity:1,y:'0rem',duration:0.5,ease:'power3.out'})}})});gsap.utils.toArray('[count-from]').forEach(el=>{const from=parseInt(el.getAttribute('count-from'),10)||0;const to=parseInt(el.textContent,10)||0;gsap.fromTo(el,{innerText:from},{innerText:to,duration:2.2,ease:'power1.out',snap:{innerText:1},scrollTrigger:{trigger:el,start:'top bottom',once:!0}})});$('.state-dropdown-item').on('click',function(){const eq=$(this).index();const txt=$(this).text().trim();$('.appetite-details').hide().eq(eq).show();$('[appetite-target-name]').text(txt)});$('.state-dropdown-item').eq(0).click();$('.filter-form').on('keydown',function(e){if(e.key==='Enter'){e.preventDefault();return!1}});$('.career-img-list').each(function(){let items=$(this).find('.career-img');gsap.set(items,{opacity:0});let tl=gsap.timeline({repeat:-1});tl.set(items,{opacity:1,stagger:0.8}).set(items,{opacity:0},"+=0.8")})}
 allpages()
-</script><?php wp_footer(); ?></body></html>
+</script><?php wp_footer(); ?>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5894debe64544b46b6b51ae4/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body></html>
