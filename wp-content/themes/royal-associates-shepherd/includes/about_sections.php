@@ -570,6 +570,9 @@ function about_render_service_standards(array $standards): void
 
         <div class="about-charter-layout">
           <div class="about-charter-spotlight" aria-live="polite">
+            <div class="about-charter-img-wrap">
+              <img src="/assets/images/about/customer_service_charter.png" alt="Royal Associates customer service charter" loading="lazy" class="about-charter-img">
+            </div>
             <p class="about-charter-spotlight__label u-text-style-small">Our promise to you</p>
             <?php $firstShort = htmlspecialchars($standards[0]['short'] ?? $standards[0]['title'], ENT_QUOTES, 'UTF-8'); ?>
             <div class="about-charter-short-item is-active" data-charter-short><?= $firstShort ?></div>
@@ -928,6 +931,8 @@ function about_render_styles(): void
   position: sticky; top: 6rem; padding: clamp(1.5rem, 3vw, 2.25rem);
   background: #f4f8fc; border-radius: 1rem;
 }
+.about-charter-img-wrap { margin-bottom: 1.25rem; border-radius: 0.75rem; overflow: hidden; }
+.about-charter-img { width: 100%; height: auto; display: block; object-fit: cover; }
 .about-charter-spotlight__label { color: #2A2D8A; margin: 0 0 0.75rem; font-weight: 600; }
 .about-charter-short-item {
   padding: 2rem 1.5rem; border: 2px solid #00ADEF; border-radius: 0;
