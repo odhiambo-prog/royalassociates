@@ -153,6 +153,127 @@ function royal_shepherd_create_forms() {
 add_action('admin_init', 'royal_shepherd_create_forms');
 
 /**
+ * Repair the Contact Form's privacy-consent checkbox.
+ *
+ * The checkbox field stored in the database is missing its `inputs` array.
+ * Gravity Forms needs one input per choice (with dotted ids such as 6.1) for a
+ * checkbox to render and validate correctly. Without it a *required* consent
+ * checkbox always validates as empty ("This field is required.") and the value
+ * is never saved. This routine regenerates the missing inputs from the field's
+ * choices and persists the corrected form once.
+ */
+function royal_shepherd_repair_consent_checkbox() {
+    if (!class_exists('GFAPI') || defined('DOING_AJAX')) {
+        return;
+    }
+    foreach (GFAPI::get_forms() as $form) {
+        if (empty($form['fields']) || $form['title'] !== 'Contact Form') {
+            continue;
+        }
+        $needs_repair = false;
+        foreach ($form['fields'] as &$field) {
+            if ($field->type !== 'checkbox') {
+                continue;
+            }
+            $has_inputs = !empty($field->inputs) && is_array($field->inputs);
+            if (!$has_inputs && !empty($field->choices)) {
+                $inputs = array();
+                $index = 1;
+                foreach ($field->choices as $choice) {
+                    $inputs[] = array(
+                        'id'    => $field->id . '.' . $index,
+                        'label' => rgar($choice, 'text'),
+                        'name'  => '',
+                    );
+                    $index++;
+                }
+                $field->inputs = $inputs;
+                $needs_repair = true;
+            }
+        }
+        unset($field);
+        if ($needs_repair) {
+            GFAPI::update_form($form);
+        }
+    }
+}
+add_action('wp_loaded', 'royal_shepherd_repair_consent_checkbox', 20);
+add_action('admin_init', 'royal_shepherd_repair_consent_checkbox', 20);
+
+/**
+ * Safety net for the consent checkbox: even if GF misreads the posted value
+ * (dotted vs. underscore input name), accept the submission when the consent
+ * choice was actually posted, and store it correctly.
+ */
+function royal_shepherd_consent_validation($result, $value, $form, $field) {
+    if ($field->type !== 'checkbox' || empty($field->isRequired)) {
+        return $result;
+    }
+    $posted = false;
+    if (!empty($field->inputs) && is_array($field->inputs)) {
+        foreach ($field->inputs as $input) {
+            $raw = isset($_POST['input_' . $input['id']]) ? $_POST['input_' . $input['id']] : null;
+            if (is_string($raw) && trim($raw) !== '') {
+                $posted = true;
+                break;
+            }
+        }
+    } else {
+        $raw = isset($_POST['input_' . $field->id]) ? $_POST['input_' . $field->id] : null;
+        $posted = (is_string($raw) && trim($raw) !== '');
+    }
+    if ($posted) {
+        $result['is_valid'] = true;
+        $result['message'] = '';
+    }
+    return $result;
+}
+
+function royal_shepherd_consent_save_value($value, $entry, $field, $form, $input_id) {
+    if ($field->type !== 'checkbox') {
+        return $value;
+    }
+    if (is_array($value) && count(array_filter($value)) > 0) {
+        return $value;
+    }
+    if (!empty($field->inputs) && is_array($field->inputs)) {
+        $recovered = array();
+        foreach ($field->inputs as $input) {
+            $raw = isset($_POST['input_' . $input['id']]) ? $_POST['input_' . $input['id']] : '';
+            $recovered[strval($input['id'])] = is_string($raw) ? $raw : '';
+        }
+        if (count(array_filter($recovered)) > 0) {
+            return $recovered;
+        }
+    }
+    return $value;
+}
+
+if (class_exists('GFAPI')) {
+    foreach (GFAPI::get_forms() as $form) {
+        if ($form['title'] !== 'Contact Form') {
+            continue;
+        }
+        foreach ($form['fields'] as $field) {
+            if ($field->type === 'checkbox') {
+                add_filter(
+                    'gform_field_validation_' . $form['id'] . '_' . $field->id,
+                    'royal_shepherd_consent_validation',
+                    10,
+                    4
+                );
+                add_filter(
+                    'gform_save_field_value_' . $form['id'] . '_' . $field->id,
+                    'royal_shepherd_consent_save_value',
+                    10,
+                    5
+                );
+            }
+        }
+    }
+}
+
+/**
  * Serve /assets/* static files from the theme directory.
  * The physical symlink at the WP root handles most cases;
  * this filter serves as a fallback for environments without symlink support.

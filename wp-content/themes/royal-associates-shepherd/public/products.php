@@ -117,9 +117,7 @@ CARD;
     <button type="button" class="modal-close" aria-label="Close" onclick="window.closeQuoteModal()">&times;</button>
     <h2 id="quote-modal-title">Get a Quote</h2>
     <p class="modal-sub">Tell us about your needs and our brokers will get back to you.</p>
-    <form action="/contact" method="GET">
-      <?php gravity_form('Get a Quote', false, false, false, null, false); ?>
-    </form>
+    <?php gravity_form('Get a Quote', false, false, false, null, false); ?>
   </div>
 </div>
 
