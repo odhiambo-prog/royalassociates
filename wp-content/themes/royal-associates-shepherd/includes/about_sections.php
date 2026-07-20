@@ -210,7 +210,7 @@ function about_render_hero(array $hero): void
               <div class="content-flex v-flex-8 u-justify-content-between">
                 <div class="pages-heading-flex v-flex-6">
                   <p class="u-text-style-small" style="opacity:0.85;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Because We Care</p>
-                  <h1 class="pages-hero-heading u-text-style-h2"><span class="txt-icon-arrow is-up"> </span> Insurance solutions <span class="txt-icon-arrow"> </span> built around you.</h1>
+                  <h1 class="pages-hero-heading u-text-style-h2">Insurance solutions built around you.</h1>
                   <div class="hero-p u-text-style-main" style="color:rgba(255,255,255,0.9)"><?= $intro ?></div>
                 </div>
                 <div class="u-button-wrapper u-margin-top-0"><div class="u-display-contents"><?= $btn ?></div></div>

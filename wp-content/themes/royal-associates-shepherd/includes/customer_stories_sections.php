@@ -36,7 +36,8 @@ function cs_render_hero(): void
             <div class="u-content v-flex-8">
               <div class="content-flex v-flex-8 u-justify-content-between">
                 <div class="pages-heading-flex v-flex-6">
-                  <h1 class="pages-hero-heading u-text-style-h2">Real stories from the clients <span class="txt-icon-arrow"> </span> we serve</h1>
+                  <p class="u-text-style-small" style="opacity:0.85;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Testimonials</p>
+                  <h1 class="pages-hero-heading u-text-style-h2">Real stories from the clients we serve</h1>
                   <div class="hero-p u-text-style-main">Hear from clients across Kenya and the region on how Royal Associates delivers responsive brokerage, tailored cover, and trusted partnership.</div>
                 </div>
                 <div class="u-button-wrapper u-margin-top-0">
