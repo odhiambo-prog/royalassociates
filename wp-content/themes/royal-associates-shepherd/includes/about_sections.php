@@ -573,9 +573,6 @@ function about_render_service_standards(array $standards): void
             <div class="about-charter-img-wrap">
               <img src="/assets/images/about/customer_service_charter.png" alt="Royal Associates customer service charter" loading="lazy" class="about-charter-img">
             </div>
-            <p class="about-charter-spotlight__label u-text-style-small">Our promise to you</p>
-            <?php $firstShort = htmlspecialchars($standards[0]['short'] ?? $standards[0]['title'], ENT_QUOTES, 'UTF-8'); ?>
-            <div class="about-charter-short-item is-active" data-charter-short><?= $firstShort ?></div>
           </div>
 
           <div class="about-charter-list" role="list">
@@ -924,24 +921,14 @@ function about_render_styles(): void
 
 .about-charter-section { background: #fff; }
 .about-charter-layout {
-  display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: 2rem; align-items: start;
 }
 .about-charter-spotlight {
-  position: sticky; top: 6rem; padding: clamp(1.5rem, 3vw, 2.25rem);
-  background: #f4f8fc; border-radius: 1rem;
+  position: sticky; top: 6rem;
 }
 .about-charter-img-wrap { margin-bottom: 1.25rem; border-radius: 0.75rem; overflow: hidden; }
 .about-charter-img { width: 100%; height: auto; display: block; object-fit: cover; }
-.about-charter-spotlight__label { color: #2A2D8A; margin: 0 0 0.75rem; font-weight: 600; }
-.about-charter-short-item {
-  padding: 2rem 1.5rem; border: 2px solid #00ADEF; border-radius: 0;
-  background: rgba(0,173,239,0.06); color: #2A2D8A; font-weight: 700; font-size: 1.25rem;
-  text-align: center; text-transform: uppercase; transition: background 0.25s ease, border-color 0.25s ease;
-}
-.about-charter-short-item.is-active {
-  border-color: #00ADEF; background: rgba(0,173,239,0.08); color: #2A2D8A;
-}
 
 .about-charter-list { display: flex; flex-direction: column; gap: 0.65rem; }
 .about-charter-item {
