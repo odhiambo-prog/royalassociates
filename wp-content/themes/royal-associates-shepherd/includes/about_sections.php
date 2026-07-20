@@ -830,6 +830,7 @@ function about_render_styles(): void
 
 .about-partners-section .solutions-logos {
   height: 3.5rem; width: auto; max-width: 10rem; object-fit: contain;
+  filter: none;
   transition: transform 0.3s ease;
 }
 .about-partners-section .ticker-coll-item:hover .solutions-logos {
