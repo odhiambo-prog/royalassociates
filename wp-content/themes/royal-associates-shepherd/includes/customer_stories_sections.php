@@ -54,7 +54,7 @@ function cs_render_hero(): void
     </div>
     <div class="hero-grid-visual">
       <div id="cs-hero" class="u-visual" style="background-color:#2A2D8A">
-        <img src="/assets/images/hero-images/stories.jpg" alt="Royal Associates clients" loading="lazy" style="width:100%;height:100%;object-fit:contain;object-position:center" class="u-visual-image">
+        <img src="/assets/images/hero-images/stories.jpg" alt="Royal Associates clients" loading="lazy" style="width:100%;height:100%;object-fit:cover" class="u-visual-image">
         <div class="u-visual-bk"></div>
         <div class="img-overlay"></div>
       </div>
