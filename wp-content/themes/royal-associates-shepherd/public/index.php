@@ -63,7 +63,7 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
     <div class="u-button-wrapper u-margin-top-0"><div class="button_main_wrap"><div class="clickable_wrap u-cover-absolute"><a href="/products#product-6" class="clickable_link w-inline-block"><span class="clickable_text u-sr-only">Learn More</span></a></div><div class="button_main_element"><div aria-hidden="true" class="button_main_text u-text-style-small">Learn More</div><div class="button_main_icon u-hide-if-empty"></div></div></div></div>
   </div>
 </div>
-<div class="hero-slider-dots" style="position:absolute;bottom:12rem;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:0.5rem">
+<div class="hero-slider-dots" style="position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:0.5rem">
 </div>
 <div class="hide w-embed"><style>
 /* Hero theme -- sky blue buttons, white text */
@@ -80,6 +80,12 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
 .is-hero-section { overflow: hidden; }
 .is-hero-section .section_spacer.is-hero { flex: 1; display: flex; align-items: center; }
 .is-hero-section .hero-slider-dots { bottom: 3rem; }
+/* Mobile: keep slider dots clear of the Learn More button */
+@media (max-width: 767px) {
+  .is-hero-section .hero-slider-dots { bottom: 1.25rem; }
+  .is-hero-section .hero-slide-content { padding-bottom: 3.5rem; }
+  .is-hero-section .hero-sub { font-size: clamp(1.25rem, 5.5vw, 1.6rem); }
+}
 .hero-slide-content { position:relative; z-index:2; }
 /* Guard: keep slide text clear of the absolutely-positioned slider dots so the
    caption/subtext never overlaps the pagination on either slide (esp. slide 2). */

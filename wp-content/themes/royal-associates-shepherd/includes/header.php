@@ -873,11 +873,36 @@ body:has(.nav_dropdown_component > [aria-expanded="true"]) .nav_drop_backdrop {
 }
 
 .nav_mobile_wrap {
-  background: rgba(10, 10, 20, 0.98) !important;
+  background: #2A2D8A !important;
 }
 
 .w-nav-overlay {
   background: rgba(10, 10, 20, 0.98) !important;
+}
+
+/* --- Mobile nav + hero fixes --- */
+@media (max-width: 991px) {
+  /* Issue #2: product/resource dropdowns must flow in the document, not
+     overlap the About / Contact buttons below them. */
+  .nav_mobile_menu_wrap .nav_dropdown_mega_wrap.w-dropdown-list {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0.25rem 0 0.5rem !important;
+  }
+  .nav_mobile_menu_wrap .nav_dropdown_mega_content,
+  .nav_mobile_menu_wrap .nav_dropdown_mega_scroll,
+  .nav_mobile_menu_wrap .nav_dropdown_mega_contain,
+  .nav_mobile_menu_wrap .nav_dropdown_mega_layout {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+  .nav_mobile_menu_wrap .nav_dropdown_list {
+    min-width: 0 !important;
+  }
 }
 
 /* Dropdown starts flush with nav bottom — no overlap seam */

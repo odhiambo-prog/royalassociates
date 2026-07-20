@@ -28,7 +28,7 @@ function cs_render_hero(): void
 {
 ?>
 <section class="u-section u-theme-brand" style="--swatch--dark:#00ADEF;--swatch--light:#fff">
-  <div class="pages-hero-grid u-grid-custom" style="display:grid;grid-template-columns:1fr 1fr">
+  <div class="pages-hero-grid u-grid-custom">
     <div class="hero-grid-left" style="background-color:#2A2D8A;color:#ffffff">
       <div class="hero-grid-left-max" style="margin-left:0;padding:0 4rem;justify-content:center;display:flex;min-height:auto">
         <div class="section_spacer is-pages-hero" style="padding-top:clamp(2.5rem,5vw,4.5rem);padding-bottom:clamp(2rem,4vw,3.5rem)">
