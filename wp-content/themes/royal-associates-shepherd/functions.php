@@ -310,3 +310,246 @@ function royal_shepherd_serve_assets($continue, $wp, $query) {
     return $continue;
 }
 add_filter('do_parse_request', 'royal_shepherd_serve_assets', 10, 3);
+
+/**
+ * Site-wide styled toast + Gravity Forms AJAX confirmation handling.
+ *
+ * Any Gravity Form rendered with AJAX enabled (contact form, quote modal, etc.)
+ * will, on successful submission, surface its confirmation message as a styled
+ * toast on top of the page instead of replacing the form in place. The empty
+ * form is then restored so the visitor can submit again with no page reload.
+ *
+ * This lives in the footer (after jQuery + Gravity Forms scripts) so the
+ * gform_confirmation_loaded event is guaranteed to be bindable.
+ */
+function royal_shepherd_toast_markup() {
+    ?>
+<div id="royal-toast-region" class="royal-toast-region" role="status" aria-live="polite" aria-atomic="true"></div>
+<style>
+.royal-toast-region{position:fixed;z-index:100000;top:1.25rem;right:1.25rem;display:flex;flex-direction:column;gap:0.75rem;pointer-events:none;max-width:min(24rem,calc(100vw - 2rem))}
+.royal-toast{pointer-events:auto;display:flex;align-items:flex-start;gap:0.75rem;background:#fff;color:#1d2130;border-left:4px solid #16a34a;box-shadow:0 12px 30px rgba(29,33,48,0.18),0 4px 10px rgba(29,33,48,0.10);border-radius:0.5rem;padding:1rem 1.1rem;transform:translateX(120%);opacity:0;transition:transform .4s cubic-bezier(0.22,1,0.36,1),opacity .4s ease}
+.royal-toast.is-visible{transform:translateX(0);opacity:1}
+.royal-toast.is-error{border-left-color:#dc2626}
+.royal-toast__icon{flex:none;width:1.4rem;height:1.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:#16a34a;font-weight:700;font-size:0.9rem;line-height:1;margin-top:0.05rem}
+.royal-toast.is-error .royal-toast__icon{background:#dc2626}
+.royal-toast__body{flex:1 1 auto;min-width:0}
+.royal-toast__title{font-weight:700;font-size:0.95rem;color:#2A2D8A;margin:0 0 0.15rem}
+.royal-toast.is-error .royal-toast__title{color:#dc2626}
+.royal-toast__msg{font-size:0.88rem;line-height:1.5;color:#475569;margin:0}
+.royal-toast__msg *{margin:0}
+.royal-toast__close{flex:none;background:none;border:none;color:#9aa0b3;font-size:1.15rem;line-height:1;cursor:pointer;padding:0;margin-left:0.25rem}
+.royal-toast__close:hover{color:#2A2D8A}
+/* Hide the in-place GF confirmation everywhere — the toast handles feedback. */
+.gform_confirmation_wrapper{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:600px){
+  .royal-toast-region{left:1rem;right:1rem;top:auto;bottom:1rem;max-width:none}
+  .royal-toast{transform:translateY(120%)}
+}
+@media (prefers-reduced-motion: reduce){
+  .royal-toast{transition:none;transform:none}
+}
+</style>
+<script>
+(function () {
+  if (window.__royalToastInit) { return; }
+  window.__royalToastInit = true;
+
+  // Toasts render the message as plain TEXT (textContent), never innerHTML, so a
+  // confirmation that ever includes submitted field values (GF merge tags such
+  // as {Message:5}) cannot inject markup/script into the confirming user's page.
+  window.royalToast = function (message, type) {
+    var region = document.getElementById('royal-toast-region');
+    if (!region) { return; }
+    var isError = type === 'error';
+    var toast = document.createElement('div');
+    toast.className = 'royal-toast' + (isError ? ' is-error' : '');
+    toast.setAttribute('role', isError ? 'alert' : 'status');
+
+    var icon = document.createElement('span');
+    icon.className = 'royal-toast__icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = isError ? '!' : '\u2713';
+
+    var body = document.createElement('div');
+    body.className = 'royal-toast__body';
+    var title = document.createElement('p');
+    title.className = 'royal-toast__title';
+    title.textContent = isError ? 'Something went wrong' : 'Message sent';
+    var msg = document.createElement('div');
+    msg.className = 'royal-toast__msg';
+    msg.textContent = message;
+    body.appendChild(title);
+    body.appendChild(msg);
+
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'royal-toast__close';
+    close.setAttribute('aria-label', 'Dismiss');
+    close.innerHTML = '&times;';
+
+    toast.appendChild(icon);
+    toast.appendChild(body);
+    toast.appendChild(close);
+    region.appendChild(toast);
+
+    requestAnimationFrame(function () { toast.classList.add('is-visible'); });
+
+    var timer = setTimeout(dismiss, 7000);
+    function dismiss() {
+      clearTimeout(timer);
+      toast.classList.remove('is-visible');
+      setTimeout(function () { if (toast.parentNode) { toast.parentNode.removeChild(toast); } }, 450);
+    }
+    close.addEventListener('click', dismiss);
+  };
+
+  /* Snapshot each form's pristine markup so we can restore an empty form after
+   * an AJAX submission (no page reload -> no "confirm form resubmission"). */
+  var pristineForms = {};
+
+  function snapshotForms() {
+    var wrappers = document.querySelectorAll('.gform_wrapper');
+    for (var i = 0; i < wrappers.length; i++) {
+      var id = (wrappers[i].id || '').replace('gform_wrapper_', '');
+      if (id && pristineForms[id] === undefined) {
+        pristineForms[id] = wrappers[i].outerHTML;
+      }
+    }
+  }
+
+  /* Restore the pristine empty form. Because GF replaces the wrapper with the
+   * confirmation, we look up the confirmation node and swap the saved wrapper
+   * markup back in. Re-runs GF init so masks/validation work again. */
+  function restoreForm(formId) {
+    var html = pristineForms[formId];
+    if (!html) { return; }
+    var node = document.getElementById('gform_wrapper_' + formId)
+            || document.getElementById('gform_confirmation_wrapper_' + formId);
+    // The confirmation may be wrapped; walk up to a sensible container.
+    if (node && node.id.indexOf('confirmation') !== -1) {
+      // Replace the confirmation node (and its wrapper) with the fresh form.
+      var target = node.closest ? (node.closest('.gform_confirmation_wrapper') || node) : node;
+      var holder = document.createElement('div');
+      holder.innerHTML = html;
+      var fresh = holder.firstElementChild;
+      if (fresh && target.parentNode) {
+        target.parentNode.replaceChild(fresh, target);
+      }
+    } else if (node) {
+      var holder2 = document.createElement('div');
+      holder2.innerHTML = html;
+      var fresh2 = holder2.firstElementChild;
+      if (fresh2 && node.parentNode) { node.parentNode.replaceChild(fresh2, node); }
+    }
+    var formEl = document.getElementById('gform_' + formId);
+    if (formEl) { try { formEl.reset(); } catch (e) {} }
+    if (typeof window.gformInitSpinner === 'function') {
+      try { window.gformInitSpinner(formId, ''); } catch (e) {}
+    }
+    if (typeof window.gf_apply_rules === 'function') {
+      try { window.gf_apply_rules(formId, [], true); } catch (e) {}
+    }
+    if (window.jQuery) {
+      window.jQuery(document).trigger('gform_post_render', [formId, 1]);
+    }
+    window['gf_submitting_' + formId] = false;
+  }
+
+  function extractConfirmation(doc, formId) {
+    var el = doc.getElementById('gform_confirmation_message_' + formId)
+          || doc.querySelector('.gform_confirmation_message');
+    // Return plain text; the toast renders via textContent (no HTML injection).
+    return el ? (el.textContent || '').trim() : '';
+  }
+
+  /* Native replacement for Gravity Forms' jQuery `.load()` iframe handler, which
+   * is broken here because the theme loads jQuery 3.5.1 (where the `.load()`
+   * event shorthand GF 2.3 relies on was removed). We listen on the AJAX iframe
+   * directly with a version-independent native event. */
+  function handleFrameLoad(iframe) {
+    var formId = (iframe.id || '').replace('gform_ajax_frame_', '');
+    var doc;
+    try { doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document); }
+    catch (e) { return; }
+    if (!doc || !doc.body) { return; }
+
+    var isPostback = (doc.body.className || '').indexOf('GF_AJAX_POSTBACK') !== -1
+                  || (doc.documentElement.innerHTML || '').indexOf('GF_AJAX_POSTBACK') !== -1;
+    if (!isPostback) {
+      // Initial (blank) iframe load, not a submission response.
+      return;
+    }
+
+    var isConfirmation = !!doc.getElementById('gform_confirmation_wrapper_' + formId)
+                       || !!doc.querySelector('.gform_confirmation_message');
+    var newFormWrapper = doc.getElementById('gform_wrapper_' + formId);
+
+    if (isConfirmation) {
+      var message = extractConfirmation(doc, formId) || 'Thank you. We will get back to you shortly.';
+      window.royalToast(message, 'success');
+
+      var overlay = document.getElementById('quote-modal');
+      var inModal = overlay && overlay.querySelector('#gform_wrapper_' + formId);
+      if (overlay && overlay.classList.contains('active') && typeof window.closeQuoteModal === 'function') {
+        window.closeQuoteModal();
+      }
+      setTimeout(function () { restoreForm(formId); }, inModal ? 350 : 0);
+    } else if (newFormWrapper) {
+      // Validation failed: swap the returned form (with error markers) back in.
+      var current = document.getElementById('gform_wrapper_' + formId);
+      if (current) {
+        current.innerHTML = newFormWrapper.innerHTML;
+        if (typeof window.gformInitSpinner === 'function') {
+          try { window.gformInitSpinner(formId, ''); } catch (e) {}
+        }
+        if (window.jQuery) {
+          window.jQuery(document).trigger('gform_post_render', [formId, 1]);
+        }
+      }
+      window['gf_submitting_' + formId] = false;
+    }
+  }
+
+  function bindFrames() {
+    var frames = document.querySelectorAll('iframe[id^="gform_ajax_frame_"]');
+    for (var i = 0; i < frames.length; i++) {
+      (function (frame) {
+        if (frame.__royalBound) { return; }
+        frame.__royalBound = true;
+        frame.addEventListener('load', function () { handleFrameLoad(frame); });
+      })(frames[i]);
+    }
+  }
+
+  function init() {
+    snapshotForms();
+    bindFrames();
+    // Forms/iframes may be (re)rendered by GF; keep bindings fresh. These pages
+    // run animation libraries that mutate the DOM constantly, so coalesce the
+    // rescan into a single rAF tick per mutation burst to avoid churn.
+    if (window.MutationObserver) {
+      var scheduled = false;
+      var rescan = function () {
+        scheduled = false;
+        snapshotForms();
+        bindFrames();
+      };
+      var obs = new MutationObserver(function () {
+        if (scheduled) { return; }
+        scheduled = true;
+        (window.requestAnimationFrame || window.setTimeout)(rescan, 0);
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+    <?php
+}
+add_action('wp_footer', 'royal_shepherd_toast_markup', 100);

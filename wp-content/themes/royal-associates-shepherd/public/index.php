@@ -466,18 +466,6 @@ $homeFeatured = [
 .cta-card-wrap { aspect-ratio: 3/2; }
 .cta-cards-grid.u-grid-custom { --_column-count---value: 2; grid-row-gap: var(--_spacing---space--7); }
 .solution-top-txt { font-size: 0.95rem; line-height: 1.55; word-break: normal; }
-.modal-overlay { position:fixed; z-index:9999; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; }
-.modal-overlay.active { opacity:1; pointer-events:auto; }
-.modal-box { background:#fff; color:#1d2130; border-radius:1rem; max-width:38rem; width:90vw; max-height:90vh; padding:2rem; position:relative; overflow-y:auto; transform:scale(0.9); transition:transform 0.3s; }
-.modal-overlay.active .modal-box { transform:scale(1); }
-.modal-close { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#666; padding:0.25rem; line-height:1; }
-.modal-box h2 { font-size:1.5rem; margin:0 0 0.25rem; font-weight:600; }
-.modal-box .modal-sub { color:#666; margin-bottom:1.5rem; }
-.modal-box label { display:block; font-size:0.85rem; font-weight:500; margin-bottom:0.25rem; color:#333; }
-.modal-box input, .modal-box select, .modal-box textarea { width:100%; padding:0.6rem 0.75rem; border:1px solid #ddd; border-radius:0.5rem; font-size:0.95rem; font-family:inherit; margin-bottom:1rem; box-sizing:border-box; }
-.modal-box input:focus, .modal-box select:focus { outline:none; border-color:#00ADEF; box-shadow:0 0 0 2px rgba(0,173,239,0.15); }
-.modal-box .btn-submit { background:#1d2130; color:#fff; border:none; border-radius:4px; padding:0.6rem 2rem; font-size:0.9rem; cursor:pointer; font-family:inherit; font-weight:500; letter-spacing:0.03em; }
-.modal-box .btn-submit:hover { opacity:0.85; }
 </style></div>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -505,27 +493,12 @@ document.addEventListener("DOMContentLoaded", function() {
       var id = btn.getAttribute("data-quote");
       var nameEl = btn.closest(".cta-card-flex").querySelector(".solution-top-txt");
       var name = nameEl ? nameEl.textContent.trim() : "";
-      showQuoteModal(name);
+      if (window.showQuoteModal) { window.showQuoteModal(name); }
       return;
     }
-    if (e.target.closest(".modal-overlay") && !e.target.closest(".modal-box")) {
-      closeQuoteModal();
-    }
   });
-  window.showQuoteModal = function(product) {
-    var overlay = document.getElementById("quote-modal");
-    if (!overlay) return;
-    var pf = overlay.querySelector(".gf-product-field input");
-    if (pf) { pf.value = product; pf.readOnly = true; }
-    overlay.classList.add("active");
-  };
-  window.closeQuoteModal = function() {
-    var overlay = document.getElementById("quote-modal");
-    if (overlay) overlay.classList.remove("active");
-  };
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") closeQuoteModal();
-  });
+  // showQuoteModal / closeQuoteModal are provided by the shared quote modal
+  // partial (includes/quote_modal.php).
 });
 </script>
 <script>
@@ -595,13 +568,6 @@ document.addEventListener("DOMContentLoaded", function() {
     section.addEventListener('mouseleave', start);
   }
 })();
-</script><div id="quote-modal" class="modal-overlay"><div class="modal-box"><button class="modal-close" onclick="closeQuoteModal()">&times;</button><h2>Get a Quote</h2><p class="modal-sub">Fill in your details and we will get back to you.</p><?php gravity_form('Get a Quote', false, false, false, null, false); ?></div></div>
-<style>
-#quote-modal .gf-product-field input { background: #f0f4f8 !important; border: 1px solid #cbd5e1 !important; cursor: default !important; opacity: 0.8 !important; }
-#quote-modal input:not([type=submit]):not([type=checkbox]), #quote-modal textarea { border: 1px solid #cbd5e1 !important; border-radius: 0.375rem !important; padding: 0.625rem 0.75rem !important; font-size: 0.95rem !important; width: 100% !important; }
-#quote-modal .gfield_label { font-weight: 600 !important; font-size: 0.85rem !important; margin-bottom: 0.25rem !important; }
-#quote-modal .gfield { margin-bottom: 0.75rem !important; }
-#quote-modal .gform_footer input[type=submit] { background: #00ADEF !important; color: #fff !important; border: none !important; padding: 0.7rem 2rem !important; border-radius: 0.375rem !important; cursor: pointer !important; font-weight: 600 !important; font-size: 0.95rem !important; }
-#quote-modal .gform_footer input[type=submit]:hover { background: #0095d4 !important; }
-</style>
+</script>
+<?php include __DIR__ . '/../includes/quote_modal.php'; ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
