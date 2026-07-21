@@ -138,18 +138,34 @@ body .nav_component.is-solid .nav_buttons_item:not(.is-main) .button_main_elemen
   text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
-/* Responsive hero backgrounds — serve smaller variants on small screens */
+/* Responsive hero backgrounds — serve webp with jpeg fallback */
 .hero-slide-bg--1 {
   background-image: url(/assets/images/hero-images/raib-hero-private-motor.jpg);
+  background-image: image-set(
+    url(/assets/images/hero-images/raib-hero-private-motor.webp) type("image/webp"),
+    url(/assets/images/hero-images/raib-hero-private-motor.jpg) type("image/jpeg")
+  );
 }
 .hero-slide-bg--2 {
   background-image: url(/assets/images/hero-images/raib-hero-marine-cargo.jpg);
+  background-image: image-set(
+    url(/assets/images/hero-images/raib-hero-marine-cargo.webp) type("image/webp"),
+    url(/assets/images/hero-images/raib-hero-marine-cargo.jpg) type("image/jpeg")
+  );
 }
 .hero-slide-bg--3 {
   background-image: url(/assets/images/hero-images/raib-hero-industrial-all-risk.jpg);
+  background-image: image-set(
+    url(/assets/images/hero-images/raib-hero-industrial-all-risk.webp) type("image/webp"),
+    url(/assets/images/hero-images/raib-hero-industrial-all-risk.jpg) type("image/jpeg")
+  );
 }
 .hero-slide-bg--4 {
-  background-image: url(/assets/images/hero-images/raib-hero-agri-weather.jpg);
+  background-image: url(/assets/images/hero-images/crop-insurance-hero.jpg);
+  background-image: image-set(
+    url(/assets/images/hero-images/crop-insurance-hero.webp) type("image/webp"),
+    url(/assets/images/hero-images/crop-insurance-hero.jpg) type("image/jpeg")
+  );
 }
 @media (min-width: 768px) {
   .hero-slide-bg--personal {
