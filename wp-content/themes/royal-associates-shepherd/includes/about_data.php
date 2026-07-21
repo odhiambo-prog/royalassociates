@@ -102,7 +102,6 @@ return [
     'offices' => [
         ['name' => 'Head Office — Nairobi', 'address' => 'Westlands Business Park, 3rd Floor, Chiromo Lane, Opposite GTC Residence, Westlands, Nairobi', 'email' => 'info@royalassociates.co.ke'],
         ['name' => 'Mombasa Branch', 'address' => 'Nyali Centre, 2nd Floor, Links Road, Mombasa'],
-        ['name' => 'Machakos Branch', 'address' => 'Kasinga House, Ground floor, opposite Machakos Stadium. Next to Chroride Exide shop.', 'phone' => '+254726545469 / +254722372522 / +254708271196'],
         ['name' => 'Rwanda Branch', 'address' => 'Makuza Peace Plaza, 4th Floor, P.O. Box 2554, Kigali, Rwanda', 'phone' => '+250 788 601 449'],
     ],
 
@@ -119,7 +118,6 @@ return [
         ['folder' => 'senior_management_team', 'label' => 'Senior Management Team'],
         ['folder' => 'head_office_nairobi', 'label' => 'Head Office — Nairobi'],
         ['folder' => 'mombasa_office', 'label' => 'Mombasa Office'],
-        ['folder' => 'machakos_branch', 'label' => 'Machakos Branch'],
         ['folder' => 'rwanda_office', 'label' => 'Rwanda Office'],
     ],
 
