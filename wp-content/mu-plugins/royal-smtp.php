@@ -153,3 +153,72 @@ add_action('wp_mail_failed', function ($wp_error) {
         error_log('[Royal SMTP] wp_mail failed: ' . $wp_error->get_error_message());
     }
 });
+
+/**
+ * WP-CLI command to test SMTP connectivity from the server.
+ *
+ * Usage:  wp royal test-smtp
+ *
+ * This tests DNS resolution, TCP connectivity, and SSL handshake against the
+ * configured SMTP server so you can diagnose whether port 465 is actually open
+ * from the Docker/Dokploy container.
+ */
+if (defined('WP_CLI') && WP_CLI) {
+    WP_CLI::add_command('royal test-smtp', function () {
+        $host = royal_smtp_setting('SMTP_HOST');
+        $port = (int) royal_smtp_setting('SMTP_PORT', 465);
+        $user = royal_smtp_setting('SMTP_USER');
+
+        WP_CLI::line("SMTP settings from environment:");
+        WP_CLI::line("  Host: $host");
+        WP_CLI::line("  Port: $port");
+        WP_CLI::line("  User: $user");
+        WP_CLI::line("  Pass: " . (royal_smtp_setting('SMTP_PASS') ? '****** (set)' : '(not set)'));
+        WP_CLI::line("");
+
+        // 1. DNS resolution.
+        WP_CLI::line("1. DNS lookup for $host...");
+        $ip = gethostbyname($host);
+        if ($ip === $host) {
+            WP_CLI::warning("  DNS resolution failed (gethostbyname returned the input)");
+        } else {
+            WP_CLI::success("  Resolved to $ip");
+        }
+
+        // 2. TCP socket test.
+        WP_CLI::line("2. TCP socket test to $host:$port (5s timeout)...");
+        $errno = 0;
+        $errstr = '';
+        $fp = @fsockopen($host, $port, $errno, $errstr, 5);
+        if ($fp) {
+            WP_CLI::success("  TCP connection successful");
+            fclose($fp);
+
+            // 3. SSL handshake test (only if TCP succeeded).
+            WP_CLI::line("3. SSL handshake test via stream_socket_client (5s timeout)...");
+            $ctx = stream_context_create(['ssl' => [
+                'verify_peer'       => false,
+                'verify_peer_name'  => false,
+                'allow_self_signed' => true,
+            ]]);
+            $ssl = @stream_socket_client(
+                "ssl://$host:$port",
+                $errno, $errstr, 5,
+                STREAM_CLIENT_CONNECT,
+                $ctx
+            );
+            if ($ssl) {
+                WP_CLI::success("  SSL handshake successful — mail server is reachable and accepts SSL");
+                fclose($ssl);
+            } else {
+                WP_CLI::error("  SSL handshake failed: $errstr ($errno)");
+            }
+        } else {
+            WP_CLI::error("  TCP connection failed: $errstr ($errno)");
+            WP_CLI::line("");
+            WP_CLI::line("This means outbound port $port is BLOCKED from this server.");
+            WP_CLI::line("Contact your hosting provider and ask them to open outbound $port/tcp.");
+            WP_CLI::line("Alternatively, use a transactional email service (SendGrid, Mailgun, SES).");
+        }
+    });
+}
