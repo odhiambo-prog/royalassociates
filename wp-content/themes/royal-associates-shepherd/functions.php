@@ -612,21 +612,16 @@ add_action('gform_after_submission', function ($entry, $form) {
     $title = rgar($form, 'title');
     $targets = array('Get a Quote', 'Contact Form');
     if (in_array($title, $targets)) {
-        file_put_contents('/tmp/royal-gf-hook-debug.log', date('H:i:s') . " gform_after_submission backup firing for: $title\n", FILE_APPEND);
-
-        $result = GFAPI::send_notifications($form, $entry, 'form_submission');
-        file_put_contents('/tmp/royal-gf-hook-debug.log', date('H:i:s') . " send_notifications result: " . (is_wp_error($result) ? $result->get_error_message() : ($result ? 'true' : 'false')) . "\n", FILE_APPEND);
-
         $to = 'info@royalassociates.co.ke';
-        $subject = 'New ' . $title . ' submission';
         $first = rgar($entry, '1');
         $last = rgar($entry, '2');
         $email = rgar($entry, '3');
         $phone = rgar($entry, '4');
-        $product = rgar($entry, '5');
+        $field5 = rgar($entry, '5');
         $message = rgar($entry, '6');
-        $body = "Name: $first $last\nEmail: $email\nPhone: $phone\nProduct: $product\nMessage: $message";
-        $sent = wp_mail($to, $subject, $body);
-        file_put_contents('/tmp/royal-gf-hook-debug.log', date('H:i:s') . " direct wp_mail result: " . ($sent ? 'true' : 'false') . "\n", FILE_APPEND);
+        $label5 = 'Get a Quote' === $title ? 'Product' : 'Subject';
+        $body = "Name: $first $last\nEmail: $email\nPhone: $phone\n$label5: $field5\nMessage: $message";
+        $subject = 'New ' . $title . ' from ' . $first . ' ' . $last;
+        wp_mail($to, $subject, $body, array('Reply-To: ' . $email));
     }
-}, 9, 2);
+}, 20, 2);
