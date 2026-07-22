@@ -115,11 +115,10 @@ add_action('phpmailer_init', function ($phpmailer) {
     $phpmailer->Timelimit = 10;
 
     // Log the full SMTP conversation so connection / auth failures are
-    // visible in the error log (wp-content/debug.log) — revert to 0 after
-    // troubleshooting.
-    $phpmailer->SMTPDebug    = 2;
-    $phpmailer->Debugoutput  = function ($str, $level) {
-        error_log('[PHPMailer] ' . $str);
+    // diagnosable — revert to SMTPDebug = 0 after troubleshooting.
+    $phpmailer->SMTPDebug   = 2;
+    $phpmailer->Debugoutput = function ($str, $level) {
+        file_put_contents('/tmp/royal-smtp-debug.log', '[' . date('H:i:s') . '] ' . $str, FILE_APPEND);
     };
 
     // Send from an address that belongs to the authenticated mailbox so the
