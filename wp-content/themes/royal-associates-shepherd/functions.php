@@ -579,10 +579,40 @@ function royal_shepherd_toast_markup() {
 }
 add_action('wp_footer', 'royal_shepherd_toast_markup', 100);
 
+add_filter('gform_pre_submission_filter', function ($form) {
+    $title = rgar($form, 'title');
+    $targets = array('Get a Quote', 'Contact Form');
+    if (in_array($title, $targets)) {
+        file_put_contents('/tmp/royal-gf-hook-debug.log', date('H:i:s') . " gform_pre_submission_filter fired for: $title\n", FILE_APPEND);
+        foreach ($form['notifications'] as &$notification) {
+            $notification['isActive'] = true;
+            $notification['to'] = 'info@royalassociates.co.ke';
+            $notification['event'] = 'form_submission';
+            $notification['toType'] = 'email';
+        }
+        if (empty($form['notifications'])) {
+            $form['notifications'] = array(
+                array(
+                    'id' => 'notif_forced',
+                    'isActive' => true,
+                    'to' => 'info@royalassociates.co.ke',
+                    'name' => 'Admin Notification',
+                    'event' => 'form_submission',
+                    'toType' => 'email',
+                    'subject' => 'New submission from ' . $title,
+                    'message' => '{all_fields}',
+                ),
+            );
+        }
+    }
+    return $form;
+});
+
 add_action('gform_after_submission', function ($entry, $form) {
     $title = rgar($form, 'title');
     $targets = array('Get a Quote', 'Contact Form');
     if (in_array($title, $targets)) {
+        file_put_contents('/tmp/royal-gf-hook-debug.log', date('H:i:s') . " gform_after_submission backup firing for: $title\n", FILE_APPEND);
         GFAPI::send_notifications($form, $entry, 'form_submission');
     }
 }, 9, 2);
