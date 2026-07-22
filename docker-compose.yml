@@ -32,6 +32,11 @@ services:
       WP_ADMIN_USER: ${WP_ADMIN_USER:-ngari}
       WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
       WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL:-gmngari1@gmail.com}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_SECURE: ${SMTP_SECURE:-ssl}
     depends_on:
       mariadb:
         condition: service_healthy

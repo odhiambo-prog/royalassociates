@@ -97,6 +97,16 @@ add_action('phpmailer_init', function ($phpmailer) {
     // 'tls' -> STARTTLS (usually port 587), 'ssl' -> implicit SSL (port 465).
     $phpmailer->SMTPSecure = ($secure === 'ssl') ? 'ssl' : 'tls';
 
+    // Relax SSL verification for private mail servers that may use self-signed
+    // or internal-CA certificates (common for Kenyan hosting SMTP relays).
+    $phpmailer->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true,
+        ),
+    );
+
     // Send from an address that belongs to the authenticated mailbox so the
     // message passes SPF/DKIM and is not treated as spoofed.
     $from_email = royal_smtp_setting('SMTP_FROM', $user);

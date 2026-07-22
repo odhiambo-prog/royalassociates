@@ -62,6 +62,14 @@ if (getenv('DB_NAME') && getenv('IS_DDEV_PROJECT') !== 'true') {
         }
     }
 
+    // SMTP settings for the Royal SMTP mu-plugin.
+    foreach (['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_SECURE', 'SMTP_FROM', 'SMTP_FROM_NAME'] as $key) {
+        $env_val = getenv($key);
+        if ($env_val !== false && $env_val !== '') {
+            define($key, $env_val);
+        }
+    }
+
     // Detect HTTPS behind reverse proxy (e.g. Dokploy Traefik)
     if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
         $_SERVER['HTTPS'] = 'on';
