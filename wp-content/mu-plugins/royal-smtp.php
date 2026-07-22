@@ -107,6 +107,17 @@ add_action('phpmailer_init', function ($phpmailer) {
         ),
     );
 
+    // Short timeout so a unreachable SMTP host (firewalled port, DNS failure,
+    // etc.) does not block the PHP process for the default 30+ seconds. The
+    // form submission response waits for wp_mail to finish, so a long hang
+    // makes the AJAX iframe appear stuck / never load.
+    $phpmailer->Timeout = 5;
+    $phpmailer->Timelimit = 10;
+
+    // Log SMTP debug output at level 1 (client → server) to the error log so
+    // connection failures are diagnosable even when the mail server is private.
+    $phpmailer->SMTPDebug = 0; // set to 1 to troubleshoot SMTP handshake
+
     // Send from an address that belongs to the authenticated mailbox so the
     // message passes SPF/DKIM and is not treated as spoofed.
     $from_email = royal_smtp_setting('SMTP_FROM', $user);
