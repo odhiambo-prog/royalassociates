@@ -342,7 +342,7 @@ function royal_shepherd_toast_markup() {
 /* Hide the in-place GF confirmation everywhere — the toast handles feedback. */
 .gform_confirmation_wrapper{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .gform_ajax_spinner{display:none!important}
-.gform_button.submitting{background:#94a3b8!important;cursor:not-allowed!important}
+.gform_button.submitting{background:#94a3b8!important;color:#fff!important}
 @media (max-width:600px){
   .royal-toast-region{left:1rem;right:1rem;top:auto;bottom:1rem;max-width:none}
   .royal-toast{transform:translateY(120%)}
@@ -524,19 +524,25 @@ function royal_shepherd_toast_markup() {
     }
   }
 
+  var submittingForms = {};
+
   function resetSubmitButton(formId) {
     var btn = document.querySelector('#gform_wrapper_' + formId + ' .gform_button');
     if (!btn) { return; }
     btn.classList.remove('submitting');
-    btn.disabled = false;
     btn.value = 'Submit';
+    submittingForms[formId] = false;
   }
 
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.gform_button');
-    if (!btn || btn.classList.contains('submitting')) { return; }
+    if (!btn) { return; }
+    var wrapper = btn.closest('.gform_wrapper');
+    if (!wrapper) { return; }
+    var formId = (wrapper.id || '').replace('gform_wrapper_', '');
+    if (!formId || submittingForms[formId]) { return; }
+    submittingForms[formId] = true;
     btn.classList.add('submitting');
-    btn.disabled = true;
     btn.value = 'Submitting\u2026';
   });
 
