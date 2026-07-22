@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) { exit; }
 if (defined('ROYAL_QUOTE_MODAL_RENDERED')) { return; }
 define('ROYAL_QUOTE_MODAL_RENDERED', true);
 ?>
-<div id="quote-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+<div id="quote-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" style="display:none">
   <div class="modal-box">
     <button type="button" class="modal-close" aria-label="Close" onclick="window.closeQuoteModal()">&times;</button>
     <h2 id="quote-modal-title">Get a Quote</h2>
@@ -33,8 +33,8 @@ define('ROYAL_QUOTE_MODAL_RENDERED', true);
 
 <style>
 /* ---- Quote modal ---- */
-.modal-overlay{position:fixed;z-index:9999;inset:0;background:rgba(29,33,48,0.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s cubic-bezier(0.22,1,0.36,1)}
-.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal-overlay{position:fixed;z-index:9999;inset:0;background:rgba(29,33,48,0.55);display:none;align-items:center;justify-content:center;transition:opacity .3s cubic-bezier(0.22,1,0.36,1)}
+.modal-overlay.active{display:flex;opacity:1;pointer-events:auto}
 .modal-box{background:#fff;color:#1d2130;max-width:38rem;width:90vw;max-height:90vh;padding:2.5rem;position:relative;overflow-y:auto;transform:translateY(12px);transition:transform .3s cubic-bezier(0.22,1,0.36,1);border-top:4px solid #2A2D8A}
 .modal-overlay.active .modal-box{transform:translateY(0)}
 .modal-box h2{font-size:1.5rem;margin:0 0 0.25rem;font-weight:700;letter-spacing:-0.02em;color:#2A2D8A}
@@ -66,7 +66,10 @@ define('ROYAL_QUOTE_MODAL_RENDERED', true);
     if (!overlay) { return; }
     var pf = overlay.querySelector('.gf-product-field input');
     if (pf) { pf.value = product || ''; pf.readOnly = true; }
-    overlay.classList.add('active');
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function () {
+      overlay.classList.add('active');
+    });
     document.body.style.overflow = 'hidden';
     var first = overlay.querySelector('.gform_body input:not([readonly])');
     if (first) { try { first.focus(); } catch (e) {} }
@@ -74,7 +77,11 @@ define('ROYAL_QUOTE_MODAL_RENDERED', true);
 
   window.closeQuoteModal = function () {
     var overlay = document.getElementById('quote-modal');
-    if (overlay) { overlay.classList.remove('active'); }
+    if (!overlay) { return; }
+    overlay.classList.remove('active');
+    setTimeout(function () {
+      overlay.style.display = 'none';
+    }, 300);
     document.body.style.overflow = '';
   };
 

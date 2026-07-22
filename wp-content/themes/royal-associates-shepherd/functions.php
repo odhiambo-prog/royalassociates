@@ -341,6 +341,8 @@ function royal_shepherd_toast_markup() {
 .royal-toast__close:hover{color:#2A2D8A}
 /* Hide the in-place GF confirmation everywhere — the toast handles feedback. */
 .gform_confirmation_wrapper{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gform_ajax_spinner{display:none!important}
+.gform_button.submitting{background:#94a3b8!important;cursor:not-allowed!important}
 @media (max-width:600px){
   .royal-toast-region{left:1rem;right:1rem;top:auto;bottom:1rem;max-width:none}
   .royal-toast{transform:translateY(120%)}
@@ -493,7 +495,7 @@ function royal_shepherd_toast_markup() {
       if (overlay && overlay.classList.contains('active') && typeof window.closeQuoteModal === 'function') {
         window.closeQuoteModal();
       }
-      setTimeout(function () { restoreForm(formId); }, inModal ? 350 : 0);
+      setTimeout(function () { restoreForm(formId); resetSubmitButton(formId); }, inModal ? 350 : 0);
     } else if (newFormWrapper) {
       // Validation failed: swap the returned form (with error markers) back in.
       var current = document.getElementById('gform_wrapper_' + formId);
@@ -506,6 +508,7 @@ function royal_shepherd_toast_markup() {
           window.jQuery(document).trigger('gform_post_render', [formId, 1]);
         }
       }
+      resetSubmitButton(formId);
       window['gf_submitting_' + formId] = false;
     }
   }
@@ -520,6 +523,22 @@ function royal_shepherd_toast_markup() {
       })(frames[i]);
     }
   }
+
+  function resetSubmitButton(formId) {
+    var btn = document.querySelector('#gform_wrapper_' + formId + ' .gform_button');
+    if (!btn) { return; }
+    btn.classList.remove('submitting');
+    btn.disabled = false;
+    btn.value = 'Submit';
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.gform_button');
+    if (!btn || btn.classList.contains('submitting')) { return; }
+    btn.classList.add('submitting');
+    btn.disabled = true;
+    btn.value = 'Submitting\u2026';
+  });
 
   function init() {
     snapshotForms();
