@@ -633,20 +633,9 @@ add_action('gform_after_submission', function ($entry, $form) {
 
     if (royal_smtp_is_configured()) {
         try {
-            if (!class_exists('\PHPMailer\PHPMailer\PHPMailer', false)) {
-                $phpmailer_dir = ABSPATH . WPINC . '/PHPMailer';
-                foreach (array('PHPMailer.php', 'SMTP.php', 'Exception.php') as $file) {
-                    $path = $phpmailer_dir . '/' . $file;
-                    if (file_exists($path)) {
-                        require_once $path;
-                    }
-                    $path = $phpmailer_dir . '/PHPMailer/' . $file;
-                    if (file_exists($path)) {
-                        require_once $path;
-                    }
-                }
-            }
-            $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+            require_once ABSPATH . WPINC . '/class-phpmailer.php';
+            require_once ABSPATH . WPINC . '/class-smtp.php';
+            $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->Host       = royal_smtp_setting('SMTP_HOST');
             $mail->Port       = (int) royal_smtp_setting('SMTP_PORT', 587);
