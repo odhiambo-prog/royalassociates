@@ -611,17 +611,53 @@ add_filter('gform_pre_submission_filter', function ($form) {
 add_action('gform_after_submission', function ($entry, $form) {
     $title = rgar($form, 'title');
     $targets = array('Get a Quote', 'Contact Form');
-    if (in_array($title, $targets)) {
-        $to = 'info@royalassociates.co.ke';
-        $first = rgar($entry, '1');
-        $last = rgar($entry, '2');
-        $email = rgar($entry, '3');
-        $phone = rgar($entry, '4');
-        $field5 = rgar($entry, '5');
-        $message = rgar($entry, '6');
-        $label5 = 'Get a Quote' === $title ? 'Product' : 'Subject';
-        $body = "Name: $first $last\nEmail: $email\nPhone: $phone\n$label5: $field5\nMessage: $message";
-        $subject = 'New ' . $title . ' from ' . $first . ' ' . $last;
-        wp_mail($to, $subject, $body, array('Reply-To: ' . $email));
+    if (!in_array($title, $targets)) {
+        return;
     }
-}, 20, 2);
+
+    $first = rgar($entry, '1');
+    $last = rgar($entry, '2');
+    $email = rgar($entry, '3');
+    $phone = rgar($entry, '4');
+    $field5 = rgar($entry, '5');
+    $message = rgar($entry, '6');
+    $label5 = 'Get a Quote' === $title ? 'Product' : 'Subject';
+    $body = "Name: $first $last\nEmail: $email\nPhone: $phone\n$label5: $field5\nMessage: $message";
+    $subject = 'New ' . $title . ' from ' . $first . ' ' . $last;
+
+    if (function_exists('royal_smtp_setting') && royal_smtp_setting('SMTP_HOST')) {
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host       = royal_smtp_setting('SMTP_HOST');
+            $mail->Port       = (int) royal_smtp_setting('SMTP_PORT', 587);
+            $mail->SMTPAuth   = true;
+            $mail->Username   = royal_smtp_setting('SMTP_USER');
+            $mail->Password   = royal_smtp_setting('SMTP_PASS');
+            $mail->SMTPSecure = strtolower(royal_smtp_setting('SMTP_SECURE', 'tls'));
+            $mail->Timeout    = 5;
+            $mail->Timelimit  = 10;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer'       => false,
+                    'verify_peer_name'  => false,
+                    'allow_self_signed' => true,
+                ),
+            );
+            $from_email = royal_smtp_setting('SMTP_FROM', $mail->Username);
+            $from_name  = royal_smtp_setting('SMTP_FROM_NAME', get_bloginfo('name'));
+            $mail->setFrom($from_email, $from_name, false);
+            $mail->addAddress('info@royalassociates.co.ke');
+            if ($email) {
+                $mail->addReplyTo($email, "$first $last");
+            }
+            $mail->Subject = $subject;
+            $mail->Body    = $body;
+            $mail->send();
+        } catch (Exception $e) {
+            file_put_contents('/tmp/royal-gf-hook-debug.log', date('H:i:s') . " PHPMailer failed: " . $e->getMessage() . "\n", FILE_APPEND);
+        }
+    } else {
+        wp_mail('info@royalassociates.co.ke', $subject, $body, $email ? array('Reply-To: ' . $email) : array());
+    }
+}, 9, 2);
