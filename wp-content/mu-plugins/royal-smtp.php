@@ -114,9 +114,13 @@ add_action('phpmailer_init', function ($phpmailer) {
     $phpmailer->Timeout = 5;
     $phpmailer->Timelimit = 10;
 
-    // Log SMTP debug output at level 1 (client → server) to the error log so
-    // connection failures are diagnosable even when the mail server is private.
-    $phpmailer->SMTPDebug = 0; // set to 1 to troubleshoot SMTP handshake
+    // Log the full SMTP conversation so connection / auth failures are
+    // visible in the error log (wp-content/debug.log) — revert to 0 after
+    // troubleshooting.
+    $phpmailer->SMTPDebug    = 2;
+    $phpmailer->Debugoutput  = function ($str, $level) {
+        error_log('[PHPMailer] ' . $str);
+    };
 
     // Send from an address that belongs to the authenticated mailbox so the
     // message passes SPF/DKIM and is not treated as spoofed.
