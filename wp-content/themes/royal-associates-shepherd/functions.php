@@ -578,3 +578,11 @@ function royal_shepherd_toast_markup() {
     <?php
 }
 add_action('wp_footer', 'royal_shepherd_toast_markup', 100);
+
+add_action('gform_after_submission', function ($entry, $form) {
+    $title = rgar($form, 'title');
+    $targets = array('Get a Quote', 'Contact Form');
+    if (in_array($title, $targets)) {
+        GFAPI::send_notifications($form, $entry, 'form_submission');
+    }
+}, 9, 2);
