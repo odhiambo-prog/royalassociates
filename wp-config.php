@@ -142,6 +142,8 @@ if (!defined('WP_DEBUG') || WP_DEBUG) {
 // Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
 defined('SCRIPT_DEBUG') || define('SCRIPT_DEBUG', true);
 
+define('FS_METHOD', 'direct');
+
 /* That's all, stop editing! Happy blogging. */
 define('WP_MEMORY_LIMIT', '64M');
 /** Absolute path to the WordPress directory. */
